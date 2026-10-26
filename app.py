@@ -36,14 +36,14 @@ from services.job_risk_checker import evaluate_job_risk
 # before loading .env so a packaged or accidentally copied .env cannot enable
 # the interactive debugger in a deployed process. The default is production.
 PROCESS_APP_ENV = os.environ.get("APP_ENV", "production").strip().lower()
-BASE_DIR = Path(os.path.dirname(os.path.abspath(__file__)))
-load_dotenv(dotenv_path=BASE_DIR / ".env")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+load_dotenv(dotenv_path=os.path.join(BASE_DIR, ".env"))
 IS_VERCEL = bool(os.environ.get("VERCEL"))
 
 # NOTE: Vercel serverless environment has a read-only filesystem except for /tmp.
 # Data stored in /tmp is ephemeral and does not persist across cold starts.
 # For persistent production storage, migrate to a hosted database (Supabase, Neon, or MongoDB Atlas).
-BUNDLED_DATA_DIR = Path(os.path.join(os.path.dirname(os.path.abspath(__file__)), "data"))
+BUNDLED_DATA_DIR = Path(os.path.join(BASE_DIR, "data"))
 TMP_DATA_DIR = Path(os.path.join(tempfile.gettempdir(), "smart_job_portal_data"))
 
 if os.environ.get("SMART_JOB_PORTAL_DATA_DIR"):
@@ -122,8 +122,9 @@ def resolve_admin_password() -> str:
 
 app = Flask(
     __name__,
-    static_folder="public",
-    static_url_path=""
+    static_folder=os.path.join(BASE_DIR, "public"),
+    static_url_path="/static",
+    template_folder=os.path.join(BASE_DIR, "templates")
 )
 app.config["SECRET_KEY"] = resolve_secret_key()
 app.config["ADMIN_PASSWORD"] = resolve_admin_password()
@@ -533,35 +534,25 @@ def ensure_state_initialized():
         load_data()
 
 
-# Helper routes for static file serving across environments
+# Helper routes for backward-compatible static file redirects across environments
 @app.route("/style.css")
 def serve_root_style():
-    return send_from_directory(app.static_folder or "public", "style.css")
+    return redirect(url_for("static", filename="css/style.css"), code=301)
 
 
 @app.route("/main.js")
 def serve_root_js():
-    return send_from_directory(app.static_folder or "public", "main.js")
+    return redirect(url_for("static", filename="js/main.js"), code=301)
 
 
 @app.route("/css/<path:filename>")
 def serve_css(filename):
-    css_dir = os.path.join(app.static_folder or "public", "css")
-    return send_from_directory(css_dir, filename)
+    return redirect(url_for("static", filename=f"css/{filename}"), code=301)
 
 
 @app.route("/js/<path:filename>")
 def serve_js(filename):
-    js_dir = os.path.join(app.static_folder or "public", "js")
-    return send_from_directory(js_dir, filename)
-
-
-@app.route("/static/<path:filename>")
-def serve_legacy_static(filename):
-    static_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
-    if os.path.exists(os.path.join(static_dir, filename)):
-        return send_from_directory(static_dir, filename)
-    return send_from_directory(app.static_folder or "public", filename)
+    return redirect(url_for("static", filename=f"js/{filename}"), code=301)
 
 
 # ==============================================================================
@@ -1593,7 +1584,7 @@ def not_found_error(e):
 def internal_server_error(e):
     return (
         "<!doctype html><html><head><title>500 Internal Server Error</title>"
-        "<link rel='stylesheet' href='/style.css'></head><body>"
+        "<link rel='stylesheet' href='/static/css/style.css'></head><body>"
         "<div class='container' style='max-width: 650px; text-align: center; padding: 5rem 1.5rem;'>"
         "<div style='font-size: 4rem; font-weight: 800; color: #1e293b; line-height: 1; margin-bottom: 1rem;'>500</div>"
         "<h1 style='font-size: 2rem; margin-bottom: 0.75rem;'>Internal Server Error</h1>"

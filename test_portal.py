@@ -5,6 +5,7 @@ job CRUD, filtering, AI/ML features, and responsive data integrity.
 """
 
 import portal_test_env  # noqa: F401  (must come first: points the app at a temporary copy of data/)
+import os
 import unittest
 import json
 import io
@@ -528,7 +529,7 @@ class SmartJobPortalComprehensiveTests(unittest.TestCase):
         self.client.get("/logout", follow_redirects=True)
         login_resp = self.client.post("/login", data={
             "email": "admin@smartjobportal.com",
-            "password": "admin123"
+            "password": os.environ.get("ADMIN_PASSWORD", "admin123")
         }, follow_redirects=True)
         self.assertEqual(login_resp.status_code, 200)
         with self.client.session_transaction() as sess:

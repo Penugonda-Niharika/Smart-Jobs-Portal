@@ -18,7 +18,7 @@ from pathlib import Path
 from functools import wraps
 from flask import (
     Flask, render_template, request, redirect, url_for,
-    session, flash, jsonify, abort
+    session, flash, jsonify, abort, send_from_directory
 )
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -36,24 +36,22 @@ from services.job_risk_checker import evaluate_job_risk
 # before loading .env so a packaged or accidentally copied .env cannot enable
 # the interactive debugger in a deployed process. The default is production.
 PROCESS_APP_ENV = os.environ.get("APP_ENV", "production").strip().lower()
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(os.path.dirname(os.path.abspath(__file__)))
 load_dotenv(dotenv_path=BASE_DIR / ".env")
 IS_VERCEL = bool(os.environ.get("VERCEL"))
 
-if IS_VERCEL:
-    # On Vercel, the app root is read-only. Copy seed data into /tmp if not already present.
-    DATA_DIR = Path(os.environ.get("SMART_JOB_PORTAL_DATA_DIR") or "/tmp/smart_job_portal_data")
-    if not DATA_DIR.exists():
-        DATA_DIR.mkdir(parents=True, exist_ok=True)
-        source_data = BASE_DIR / "data"
-        if source_data.exists():
-            for src_file in source_data.glob("*.json"):
-                dest_file = DATA_DIR / src_file.name
-                if not dest_file.exists():
-                    shutil.copy2(src_file, dest_file)
+# NOTE: Vercel serverless environment has a read-only filesystem except for /tmp.
+# Data stored in /tmp is ephemeral and does not persist across cold starts.
+# For persistent production storage, migrate to a hosted database (Supabase, Neon, or MongoDB Atlas).
+BUNDLED_DATA_DIR = Path(os.path.join(os.path.dirname(os.path.abspath(__file__)), "data"))
+TMP_DATA_DIR = Path(os.path.join(tempfile.gettempdir(), "smart_job_portal_data"))
+
+if os.environ.get("SMART_JOB_PORTAL_DATA_DIR"):
+    DATA_DIR = Path(os.environ["SMART_JOB_PORTAL_DATA_DIR"])
+elif IS_VERCEL:
+    DATA_DIR = TMP_DATA_DIR
 else:
-    # DATA_DIR can be redirected (e.g. to a temp copy for tests) without touching real data.
-    DATA_DIR = Path(os.environ.get("SMART_JOB_PORTAL_DATA_DIR") or (BASE_DIR / "data"))
+    DATA_DIR = BUNDLED_DATA_DIR
 
 
 def is_development() -> bool:
@@ -101,12 +99,32 @@ def resolve_secret_key() -> str:
 
 
 def resolve_admin_password() -> str:
-    """Return configured administrator password (preconfigured to admin123 by default)."""
+    """
+    Return configured administrator password.
+    Production: a secure password (>= 12 chars) is mandatory.
+    Development: default to admin123 if unset; placeholder returns empty so ADMIN_SET is False.
+    Vercel: default to admin123 to allow zero-config serverless start if unset.
+    """
     password = os.environ.get("ADMIN_PASSWORD", "").strip()
-    return password or "admin123"
+    if is_development():
+        if password.lower().startswith(_PLACEHOLDER_SECRET_PREFIX):
+            return ""
+        return password or "admin123"
+    if IS_VERCEL:
+        return password or "admin123"
+    if not password or not _secure_value(password, minimum_length=12):
+        raise RuntimeError(
+            "ADMIN_PASSWORD environment variable is required in production and must be "
+            "a secure random value of at least 12 characters."
+        )
+    return password
 
 
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    static_folder="public",
+    static_url_path=""
+)
 app.config["SECRET_KEY"] = resolve_secret_key()
 app.config["ADMIN_PASSWORD"] = resolve_admin_password()
 app.config["DEBUG"] = is_development()
@@ -143,40 +161,79 @@ def read_json_list(path: Path):
     """
     Read a JSON list from disk. Returns (data, state) where state is 'ok', 'missing' or 'corrupt'.
     A malformed file is copied to '<name>.corrupt-<timestamp>' first so it is never silently lost.
+    Always falls back to bundled JSON if the primary file does not exist or is missing.
     """
-    if not path.exists():
-        return [], "missing"
+    bundled_file = Path(os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", path.name))
+    target = path
+    if not target.exists():
+        if bundled_file.exists():
+            target = bundled_file
+            try:
+                if str(path) != str(bundled_file):
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(bundled_file, path)
+                    target = path
+            except Exception:
+                target = bundled_file
+        else:
+            return [], "missing"
+
     try:
-        with open(path, "r", encoding="utf-8") as f:
+        with open(target, "r", encoding="utf-8") as f:
             data = json.load(f)
         if not isinstance(data, list) or not all(isinstance(item, dict) for item in data):
             raise ValueError("expected a JSON list of objects")
         return data, "ok"
     except (OSError, ValueError) as e:
         stamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-        backup = path.with_name(f"{path.name}.corrupt-{stamp}")
+        backup = target.with_name(f"{target.name}.corrupt-{stamp}")
         try:
-            shutil.copy2(path, backup)
-            print(f"Warning: {path.name} is unreadable ({e}); original preserved as {backup.name}")
+            shutil.copy2(target, backup)
+            print(f"Warning: {target.name} is unreadable ({e}); original preserved as {backup.name}")
         except OSError as copy_err:
-            print(f"Warning: {path.name} is unreadable ({e}) and could not be backed up: {copy_err}")
+            print(f"Warning: {target.name} is unreadable ({e}) and could not be backed up: {copy_err}")
         return [], "corrupt"
 
 
 def write_json_atomic(path: Path, data) -> bool:
-    """Write JSON atomically (temp file + fsync + replace) so a crash never leaves a half-written file."""
+    """
+    Write JSON atomically (temp file + fsync + replace).
+    On read-only environments (like Vercel), falls back to writing to /tmp/smart_job_portal_data.
+
+    NOTE: Writes to /tmp are ephemeral and will not persist across Vercel cold starts.
+    Migrate to a hosted database (Supabase, Neon, or MongoDB Atlas) for persistent storage.
+    """
     tmp_name = None
+    target_path = path
     try:
         with _DATA_LOCK:
-            path.parent.mkdir(parents=True, exist_ok=True)
-            fd, tmp_name = tempfile.mkstemp(dir=str(path.parent), prefix=path.name + ".", suffix=".tmp")
+            target_path.parent.mkdir(parents=True, exist_ok=True)
+            fd, tmp_name = tempfile.mkstemp(dir=str(target_path.parent), prefix=target_path.name + ".", suffix=".tmp")
             with os.fdopen(fd, "w", encoding="utf-8") as f:
                 json.dump(data, f, indent=2)
                 f.flush()
                 os.fsync(f.fileno())
-            os.replace(tmp_name, path)
+            os.replace(tmp_name, target_path)
             tmp_name = None
         return True
+    except (OSError, PermissionError) as primary_err:
+        print(f"Notice: Primary write failed for {target_path} ({primary_err}). Falling back to /tmp...")
+        try:
+            with _DATA_LOCK:
+                fallback_dir = TMP_DATA_DIR
+                fallback_dir.mkdir(parents=True, exist_ok=True)
+                fallback_path = fallback_dir / path.name
+                fd, tmp_name = tempfile.mkstemp(dir=str(fallback_dir), prefix=path.name + ".", suffix=".tmp")
+                with os.fdopen(fd, "w", encoding="utf-8") as f:
+                    json.dump(data, f, indent=2)
+                    f.flush()
+                    os.fsync(f.fileno())
+                os.replace(tmp_name, fallback_path)
+                tmp_name = None
+            return True
+        except Exception as fallback_err:
+            print(f"Error saving {path.name} to /tmp fallback: {fallback_err}")
+            return False
     except Exception as e:
         print(f"Error saving {path.name}: {e}")
         return False
@@ -218,8 +275,12 @@ def load_data():
     """Load jobs and users from JSON storage into runtime state."""
     global RUNTIME_JOBS, RUNTIME_USERS, RUNTIME_APPLICATIONS
 
-    # 1. Load Jobs
+    # 1. Load Jobs (bundled JSON fallback guaranteed)
     raw_jobs, _jobs_state = read_json_list(DATA_DIR / "jobs.json")
+    if not raw_jobs:
+        bundled_jobs_path = Path(os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "jobs.json"))
+        raw_jobs, _ = read_json_list(bundled_jobs_path)
+
     # Ensure employment type is strictly Full-time or Part-time
     for j in raw_jobs:
         if j.get("employment_type") not in ALLOWED_EMPLOYMENT_TYPES:
@@ -228,6 +289,9 @@ def load_data():
 
     # 2. Load Users
     RUNTIME_USERS, _users_state = read_json_list(DATA_DIR / "users.json")
+    if not RUNTIME_USERS:
+        bundled_users_path = Path(os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "users.json"))
+        RUNTIME_USERS, _ = read_json_list(bundled_users_path)
 
     # Ensure baseline accounts exist with valid password hashes
     default_seed = [
@@ -388,7 +452,14 @@ def inject_global_data():
 
 
 def get_active_jobs(include_hidden=False) -> list[dict]:
-    """Helper returning active listings."""
+    """Helper returning active listings. Ensures seed jobs are loaded on cold start."""
+    global RUNTIME_JOBS
+    if not RUNTIME_JOBS:
+        load_data()
+    if not RUNTIME_JOBS:
+        bundled_jobs_path = Path(os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "jobs.json"))
+        raw_jobs, _ = read_json_list(bundled_jobs_path)
+        RUNTIME_JOBS = raw_jobs
     if include_hidden:
         return RUNTIME_JOBS
     return [j for j in RUNTIME_JOBS if not j.get("is_hidden", False)]
@@ -421,7 +492,17 @@ def parse_salary_values(form):
 
 def find_job_for_viewer(job_id):
     """Find a job by id. Hidden jobs are only visible to administrators."""
+    global RUNTIME_JOBS
+    if not RUNTIME_JOBS:
+        load_data()
     job = next((j for j in RUNTIME_JOBS if str(j.get("id")) == str(job_id)), None)
+    if not job:
+        # Check bundled seed jobs directly in case of cold start
+        bundled_jobs_path = Path(os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "jobs.json"))
+        bundled_jobs, _ = read_json_list(bundled_jobs_path)
+        job = next((j for j in bundled_jobs if str(j.get("id")) == str(job_id)), None)
+        if job and job not in RUNTIME_JOBS:
+            RUNTIME_JOBS.append(job)
     if job and job.get("is_hidden", False) and session.get("user_role") != "admin":
         return None
     return job
@@ -443,6 +524,44 @@ def application_belongs_to_user(application) -> bool:
     if user_id and application.get("applicant_id") == user_id:
         return True
     return bool(user_email) and (application.get("applicant_email") or "").strip().lower() == user_email
+
+
+@app.before_request
+def ensure_state_initialized():
+    """Ensure runtime data is initialized on serverless cold starts."""
+    if not RUNTIME_JOBS:
+        load_data()
+
+
+# Helper routes for static file serving across environments
+@app.route("/style.css")
+def serve_root_style():
+    return send_from_directory(app.static_folder or "public", "style.css")
+
+
+@app.route("/main.js")
+def serve_root_js():
+    return send_from_directory(app.static_folder or "public", "main.js")
+
+
+@app.route("/css/<path:filename>")
+def serve_css(filename):
+    css_dir = os.path.join(app.static_folder or "public", "css")
+    return send_from_directory(css_dir, filename)
+
+
+@app.route("/js/<path:filename>")
+def serve_js(filename):
+    js_dir = os.path.join(app.static_folder or "public", "js")
+    return send_from_directory(js_dir, filename)
+
+
+@app.route("/static/<path:filename>")
+def serve_legacy_static(filename):
+    static_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
+    if os.path.exists(os.path.join(static_dir, filename)):
+        return send_from_directory(static_dir, filename)
+    return send_from_directory(app.static_folder or "public", filename)
 
 
 # ==============================================================================
@@ -782,6 +901,8 @@ def career_roadmap():
 def interview_prep():
     """Interview question bank with technical & behavioral filters and answer frameworks."""
     questions_file = DATA_DIR / "interview_questions.json"
+    if not questions_file.exists():
+        questions_file = Path(os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "interview_questions.json"))
     qa_data = {}
     if questions_file.exists():
         try:
@@ -903,12 +1024,10 @@ def login():
             flash("Please enter both email and password.", "error")
             return render_template("login.html", email=email)
 
-        # Administrator access depends on the configured password (preconfigured to admin123)
+        # Administrator access depends on the configured password
         admin_pass_env = app.config.get("ADMIN_PASSWORD") or "admin123"
         admin_email = email in ["admin@smartjobportal.com", "admin@portal.com"]
-        admin_password_matches = bool(admin_pass_env) and (
-            hmac.compare_digest(password, admin_pass_env) or hmac.compare_digest(password, "admin123")
-        )
+        admin_password_matches = bool(admin_pass_env) and hmac.compare_digest(password, admin_pass_env)
         if admin_email and admin_password_matches:
             user = next((
                 u for u in RUNTIME_USERS
@@ -934,9 +1053,7 @@ def login():
             # Check password hash (or admin env password)
             is_valid = False
             if user.get("role") == "admin":
-                is_valid = (admin_password_matches and admin_email) or (
-                    user.get("password_hash") and check_password_hash(user["password_hash"], password)
-                )
+                is_valid = admin_password_matches and admin_email
             elif user.get("password_hash") and check_password_hash(user["password_hash"], password):
                 is_valid = True
 
@@ -1474,7 +1591,15 @@ def not_found_error(e):
 
 @app.errorhandler(500)
 def internal_server_error(e):
-    return render_template("errors/404.html", error_message="An unexpected server error occurred."), 500
+    return (
+        "<!doctype html><html><head><title>500 Internal Server Error</title>"
+        "<link rel='stylesheet' href='/style.css'></head><body>"
+        "<div class='container' style='max-width: 650px; text-align: center; padding: 5rem 1.5rem;'>"
+        "<div style='font-size: 4rem; font-weight: 800; color: #1e293b; line-height: 1; margin-bottom: 1rem;'>500</div>"
+        "<h1 style='font-size: 2rem; margin-bottom: 0.75rem;'>Internal Server Error</h1>"
+        "<p style='color: #64748b; margin-bottom: 2rem;'>An unexpected error occurred. Please try again later.</p>"
+        "<a href='/' class='btn btn-primary'>Return to Home</a></div></body></html>"
+    ), 500
 
 
 # WSGI application alias for serverless deployments (Vercel, Gunicorn)

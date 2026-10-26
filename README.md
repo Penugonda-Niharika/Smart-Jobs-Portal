@@ -60,6 +60,9 @@ Fresh distributable archives omit `data/users.json` and `data/applications.json`
 
 The process also keeps these records in memory. The thread lock protects writes within one process, but it does not coordinate multiple Gunicorn worker processes or multiple application instances. Run a **single worker** with a persistent writable data directory. This file-based design is not suitable for multi-worker or horizontally scaled production use without replacing the storage layer with a transactional shared database. Ephemeral hosting filesystems can lose data on restart or redeploy. No email delivery, external resume storage, or OCR is implemented.
 
+> **Vercel Serverless Deployment Note:**
+> On Vercel, the filesystem is read-only except for `/tmp`. Writes (new jobs, signups, applications) fall back to `/tmp` so the serverless function operates without crashing. However, data in `/tmp` is ephemeral and does not persist across cold starts or between multiple isolated lambda instances. For full production persistence on Vercel, migrate the JSON storage layer to a hosted database such as **Supabase**, **Neon (Serverless Postgres)**, or **MongoDB Atlas**.
+
 The included `Procfile` starts Gunicorn. Before deploying, configure `SECRET_KEY` and `ADMIN_PASSWORD` as platform secrets, provide persistent writable storage for `data/`, use one worker, and ensure the hosting platform does not inject a development process mode. Flask debug remains off by default. This project does not include database migrations, backups, monitoring, or production-grade multi-instance coordination.
 
 ## Tests

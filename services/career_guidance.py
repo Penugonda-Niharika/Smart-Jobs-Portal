@@ -3,16 +3,21 @@ Career guidance and skill-gap analysis service.
 Loads predefined role skill frameworks and produces gap analyses and ordered roadmaps.
 """
 
+import os
 import json
 from pathlib import Path
 from typing import Dict, Any, List
 
-SKILLS_MAP_PATH = Path(__file__).resolve().parent.parent / "data" / "skills_map.json"
+SKILLS_MAP_PATH = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+    "data",
+    "skills_map.json"
+)
 
 
 def load_skills_map() -> Dict[str, Any]:
     """Loads skill maps from data/skills_map.json with fallback."""
-    if not SKILLS_MAP_PATH.exists():
+    if not os.path.exists(SKILLS_MAP_PATH):
         return {"roles": {}}
     try:
         with open(SKILLS_MAP_PATH, "r", encoding="utf-8") as f:

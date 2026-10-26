@@ -1,0 +1,46 @@
+[
+  {
+    "id": "USR-101",
+    "name": "Alex Seeker",
+    "email": "seeker@example.com",
+    "role": "seeker",
+    "headline": "Junior Full-Stack Python & React Developer",
+    "phone": "+91 98765 43210",
+    "bio": "Passionate software engineer with hands-on experience building scalable REST microservices, web applications, and exploratory data science pipelines.",
+    "portfolio_url": "https://github.com/alex-seeker-portfolio",
+    "skills": [
+      "Python",
+      "Flask",
+      "SQL",
+      "Git",
+      "JavaScript",
+      "HTML5",
+      "CSS3"
+    ],
+    "created_at": "2026-03-01",
+    "password_hash": "scrypt:32768:8:1$udwfEfqVuDINYFdF$9e6694373f9648b9055b5db76b97482c0ee1b95097109310c693d6f0c9a7c0f8e6317da2c6cf0b4e0ae998b6ce74e16889879c9d37a4591ed31938c98ec1ad84"
+  },
+  {
+    "id": "USR-102",
+    "name": "Sarah Recruiter",
+    "email": "employer@apexcloud.example.com",
+    "role": "employer",
+    "company_name": "Apex Cloud Systems",
+    "company_industry": "Cloud Infrastructure & Enterprise SaaS",
+    "company_website": "https://apexcloudsystems.example.com",
+    "company_overview": "Apex Cloud Systems delivers high-reliability cloud platforms and distributed microservices for enterprise businesses globally.",
+    "phone": "+91 80 4123 9000",
+    "created_at": "2026-03-01",
+    "password_hash": "scrypt:32768:8:1$LKYZjbUSG0gWifx6$af7e54975c15d01e4a5b0d1b9dc6d9dd944e21099de9ce5660109ac5c09d68a4c1281bdcfbc1d19165921008d028a58ddcf549eb33560aed24c5d94c8e6bca2a"
+  },
+  {
+    "id": "USR-103",
+    "name": "Portal Administrator",
+    "email": "admin@smartjobportal.com",
+    "role": "admin",
+    "headline": "Lead System & Moderation Administrator",
+    "phone": "+91 80 5555 0100",
+    "created_at": "2026-03-01",
+    "password_hash": "scrypt:32768:8:1$J1LqRojrC61adHJA$854879464924962bcba52aeeb2196a62879267b37070c5cb382fceb843ca6ab99fb9ffc078b12a7c5b87bf28cad5c8d7bcbd268d65f3994ce23f072db36b5974"
+  }
+]

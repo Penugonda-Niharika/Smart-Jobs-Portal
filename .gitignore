@@ -9,17 +9,17 @@ venv/
 ENV/
 .venv/
 
-# Environment Variables
+# Environment Variables & Secrets
 .env
-data/users.json
+.env.local
+.env.example
+.env.*.local
 data/applications.json
 data/*.corrupt-*
 work/
 
 # Uploads and temporary files
 uploads/
-*.pdf
-*.txt
 scratch/
 
 # IDE & OS
@@ -27,6 +27,5 @@ scratch/
 .idea/
 .DS_Store
 Thumbs.db
-
 
 !requirements.txt

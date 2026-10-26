@@ -520,6 +520,26 @@ class SmartJobPortalComprehensiveTests(unittest.TestCase):
         self.assertEqual(stat_update.status_code, 200)
         self.assertEqual(seeker_apps[0]["status"], "Shortlisted")
 
+    # --------------------------------------------------------------------------
+    # 6. Preconfigured Admin Authentication & Privileges
+    # --------------------------------------------------------------------------
+    def test_18_admin_preconfigured_login_and_access(self):
+        """Verify preconfigured admin credentials (admin@smartjobportal.com / admin123) and privileges."""
+        self.client.get("/logout", follow_redirects=True)
+        login_resp = self.client.post("/login", data={
+            "email": "admin@smartjobportal.com",
+            "password": "admin123"
+        }, follow_redirects=True)
+        self.assertEqual(login_resp.status_code, 200)
+        with self.client.session_transaction() as sess:
+            self.assertEqual(sess["user_role"], "admin")
+            self.assertEqual(sess["user_email"], "admin@smartjobportal.com")
+
+        # Admin dashboard access
+        admin_dash = self.client.get("/dashboard/admin")
+        self.assertEqual(admin_dash.status_code, 200)
+        self.assertIn(b"Admin Dashboard", admin_dash.data)
+
 
 if __name__ == "__main__":
     unittest.main()

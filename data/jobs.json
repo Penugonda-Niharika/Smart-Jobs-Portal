@@ -1,0 +1,1236 @@
+[
+  {
+    "id": "JOB-C5E41",
+    "title": "Senior Backend Dev",
+    "company": "Apex Cloud Systems",
+    "location": "bengaluru",
+    "employment_type": "Full-time",
+    "work_arrangement": "Hybrid",
+    "experience_level": "Mid-level",
+    "salary_min": 50000,
+    "salary_max": 100000,
+    "salary_currency": "INR",
+    "salary_display": "4L",
+    "description": "sd",
+    "responsibilities": [
+      "dsf"
+    ],
+    "required_skills": [
+      "Machine Learning",
+      "AI",
+      "Deep Learning"
+    ],
+    "preferred_skills": [],
+    "education": "Relevant Bachelor's Degree or Equivalent Experience",
+    "application_instructions": "Apply via official link or submit an application through the portal.",
+    "application_url": null,
+    "posted_date": "2026-10-26",
+    "contact_email": "employer@apexcloud.example.com",
+    "employer_id": "USR-102",
+    "created_by": "Apex Cloud Systems"
+  },
+  {
+    "id": "JOB-1001",
+    "title": "Junior Python Developer",
+    "company": "Apex Cloud Systems",
+    "location": "Bengaluru, India",
+    "employment_type": "Full-time",
+    "work_arrangement": "Hybrid",
+    "experience_level": "Entry-level",
+    "salary_min": 450000,
+    "salary_max": 700000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b94.5L - \u20b97.0L / year",
+    "description": "Apex Cloud Systems is looking for an enthusiastic Junior Python Developer to assist in building scalable RESTful microservices, API integrations, and backend business logic for our B2B SaaS platform.",
+    "responsibilities": [
+      "Develop and maintain robust backend APIs using Python and Flask/FastAPI.",
+      "Collaborate with frontend engineers to integrate user-facing elements with server-side logic.",
+      "Write unit tests and perform code reviews to maintain code quality.",
+      "Assist in debugging production issues and optimizing API latency."
+    ],
+    "required_skills": [
+      "Python",
+      "Flask",
+      "REST APIs",
+      "SQL",
+      "Git"
+    ],
+    "preferred_skills": [
+      "Docker",
+      "PostgreSQL",
+      "FastAPI",
+      "Linux"
+    ],
+    "education": "B.Tech/B.E in Computer Science, IT, or related technical field",
+    "application_instructions": "Submit your resume along with a link to your GitHub profile or personal projects.",
+    "application_url": "https://www.linkedin.com/jobs/view/junior-python-developer-apex-cloud",
+    "posted_date": "2026-03-15",
+    "contact_email": "careers@apexcloudsystems.example.com",
+    "employer_id": "USR-102"
+  },
+  {
+    "id": "JOB-1002",
+    "title": "Machine Learning Engineer",
+    "company": "NeuroVision Labs",
+    "location": "Hyderabad, India",
+    "employment_type": "Full-time",
+    "work_arrangement": "Remote",
+    "experience_level": "Mid-level",
+    "salary_min": 1200000,
+    "salary_max": 1800000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b912L - \u20b918L / year",
+    "description": "NeuroVision Labs develops automated computer vision and NLP models for document processing. We are seeking a Machine Learning Engineer to train, evaluate, and deploy predictive pipelines at scale.",
+    "responsibilities": [
+      "Design, implement, and fine-tune NLP and tabular ML models using scikit-learn, PyTorch, or Hugging Face.",
+      "Build automated data preprocessing and feature extraction pipelines.",
+      "Containerize models using Docker and deploy them via cloud endpoints.",
+      "Monitor model drift, latency, and predictive performance in production."
+    ],
+    "required_skills": [
+      "Python",
+      "Machine Learning",
+      "scikit-learn",
+      "PyTorch",
+      "NLP",
+      "Pandas"
+    ],
+    "preferred_skills": [
+      "MLOps",
+      "Docker",
+      "AWS",
+      "FastAPI"
+    ],
+    "education": "Bachelor's or Master's degree in CS, Data Science, or AI",
+    "application_instructions": "Upload your resume and include links to Kaggle notebooks or published research/projects.",
+    "application_url": "https://careers.neurovisionlabs.example.com/apply/ml-engineer-2026",
+    "posted_date": "2026-03-12",
+    "contact_email": "jobs@neurovisionlabs.example.com"
+  },
+  {
+    "id": "JOB-1003",
+    "title": "Frontend React / UI Developer",
+    "company": "PixelCraft Studios",
+    "location": "Pune, India",
+    "employment_type": "Full-time",
+    "work_arrangement": "On-site",
+    "experience_level": "Mid-level",
+    "salary_min": 800000,
+    "salary_max": 1300000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b98L - \u20b913L / year",
+    "description": "We are looking for a creative Frontend Developer to craft responsive web applications with rich user interfaces, intuitive interactions, and accessible web components.",
+    "responsibilities": [
+      "Implement responsive user interfaces using HTML5, modern CSS3, and JavaScript/TypeScript.",
+      "Ensure web accessibility (WCAG 2.1) and cross-browser consistency.",
+      "Coordinate with UI/UX designers to translate Figma design prototypes into clean code.",
+      "Optimize frontend bundle sizes and core web vitals."
+    ],
+    "required_skills": [
+      "JavaScript",
+      "HTML5",
+      "CSS3",
+      "React",
+      "TypeScript",
+      "Responsive Design"
+    ],
+    "preferred_skills": [
+      "TailwindCSS",
+      "Next.js",
+      "Figma",
+      "Jest"
+    ],
+    "education": "Degree in Computer Science, Web Design, or equivalent practical experience",
+    "application_instructions": "Provide a link to your online portfolio or live web projects.",
+    "application_url": "https://www.linkedin.com/jobs/view/frontend-react-ui-pixelcraft",
+    "posted_date": "2026-03-18",
+    "contact_email": "hiring@pixelcraftstudios.example.com"
+  },
+  {
+    "id": "JOB-1004",
+    "title": "Data Analyst Intern (Part-time)",
+    "company": "Kinetix Analytics",
+    "location": "Mumbai, India",
+    "employment_type": "Part-time",
+    "work_arrangement": "Remote",
+    "experience_level": "Entry-level",
+    "salary_min": 300000,
+    "salary_max": 420000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b93.0L - \u20b94.2L / year (20 hrs/week)",
+    "description": "Exciting part-time analyst opportunity for aspiring data professionals. Work directly with senior analysts to transform raw customer interaction data into actionable executive dashboards.",
+    "responsibilities": [
+      "Clean, validate, and summarize structured datasets using SQL and Python.",
+      "Build and maintain interactive dashboards in Power BI or Tableau.",
+      "Conduct trend analysis and cohort retention studies.",
+      "Present weekly operational KPI summaries to department heads."
+    ],
+    "required_skills": [
+      "SQL",
+      "Excel",
+      "Python",
+      "Data Visualization",
+      "Power BI"
+    ],
+    "preferred_skills": [
+      "Tableau",
+      "Pandas",
+      "Statistics"
+    ],
+    "education": "Pursuing or recently completed B.Tech, BCA, B.Sc, or B.Com with quantitative background",
+    "application_instructions": "Submit resume and mention any data visualization dashboards you have built.",
+    "application_url": null,
+    "posted_date": "2026-03-20",
+    "contact_email": "careers@kinetixanalytics.example.com"
+  },
+  {
+    "id": "JOB-1005",
+    "title": "Senior Java Backend Architect",
+    "company": "FinSecure Global",
+    "location": "Chennai, India",
+    "employment_type": "Full-time",
+    "work_arrangement": "Hybrid",
+    "experience_level": "Senior-level",
+    "salary_min": 2200000,
+    "salary_max": 3200000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b922L - \u20b932L / year",
+    "description": "FinSecure Global is architecting next-generation transaction processing engines. We need a Senior Java Specialist with deep distributed systems and concurrency expertise.",
+    "responsibilities": [
+      "Architect high-throughput, low-latency microservices using Java 17+ and Spring Boot.",
+      "Lead distributed database design and message queuing architectures with Apache Kafka.",
+      "Enforce security best practices, PCI-DSS compliance, and zero-trust authentication.",
+      "Mentor mid-level engineers and conduct technical design reviews."
+    ],
+    "required_skills": [
+      "Java",
+      "Spring Boot",
+      "Microservices",
+      "Kafka",
+      "SQL",
+      "System Design"
+    ],
+    "preferred_skills": [
+      "Kubernetes",
+      "AWS",
+      "Redis",
+      "CI/CD"
+    ],
+    "education": "B.Tech / M.Tech in CS, IT or equivalent",
+    "application_instructions": "Apply with your detailed curriculum vitae detailing past distributed systems projects.",
+    "application_url": "https://www.linkedin.com/jobs/view/senior-java-architect-finsecure-global",
+    "posted_date": "2026-03-10",
+    "contact_email": "careers@finsecureglobal.example.com"
+  },
+  {
+    "id": "JOB-1006",
+    "title": "Part-time Technical Writer",
+    "company": "CodeFlow Media",
+    "location": "Remote, Global",
+    "employment_type": "Part-time",
+    "work_arrangement": "Remote",
+    "experience_level": "Mid-level",
+    "salary_min": 480000,
+    "salary_max": 750000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b94.8L - \u20b97.5L / year",
+    "description": "CodeFlow Media publishes in-depth developer tutorials and cloud architecture guides. We are looking for technical authors who can explain complex coding concepts simply on a flexible part-time basis.",
+    "responsibilities": [
+      "Write comprehensive developer tutorials on Python, Cloud Computing, or Web Development.",
+      "Produce working sample code repositories demonstrating practical solutions.",
+      "Incorporate peer review feedback and optimize articles for technical SEO.",
+      "Verify code accuracy across standard Linux and Windows environments."
+    ],
+    "required_skills": [
+      "Technical Writing",
+      "Python",
+      "Git",
+      "Markdown",
+      "Documentation"
+    ],
+    "preferred_skills": [
+      "SEO",
+      "API Documentation",
+      "Open Source"
+    ],
+    "education": "Technical background or proven software development experience",
+    "application_instructions": "Submit links to 2-3 published technical articles or documentation samples.",
+    "application_url": null,
+    "posted_date": "2026-03-14",
+    "contact_email": "editorial@codeflowmedia.example.com"
+  },
+  {
+    "id": "JOB-1007",
+    "title": "Digital Marketing Specialist",
+    "company": "Verve Growth Marketing",
+    "location": "Delhi NCR, India",
+    "employment_type": "Full-time",
+    "work_arrangement": "Hybrid",
+    "experience_level": "Mid-level",
+    "salary_min": 600000,
+    "salary_max": 950000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b96.0L - \u20b99.5L / year",
+    "description": "Drive omnichannel digital marketing campaigns for high-growth tech clients. Manage paid search, social advertising, and conversion rate optimization.",
+    "responsibilities": [
+      "Plan and execute Google Ads, Meta Ads, and LinkedIn campaign funnels.",
+      "Analyze user acquisition costs (CAC), lifetime value (LTV), and return on ad spend (ROAS).",
+      "Conduct A/B testing on landing pages and email newsletters.",
+      "Produce monthly attribution reports using Google Analytics 4."
+    ],
+    "required_skills": [
+      "SEO",
+      "Google Ads",
+      "Social Media Marketing",
+      "Content Strategy",
+      "Analytics"
+    ],
+    "preferred_skills": [
+      "HubSpot",
+      "Google Tag Manager",
+      "Copywriting",
+      "A/B Testing"
+    ],
+    "education": "Bachelor's degree in Marketing, Communications, or Business",
+    "application_instructions": "Attach your resume along with a summary of notable marketing metrics achieved.",
+    "application_url": "https://www.linkedin.com/jobs/view/digital-marketing-specialist-verve",
+    "posted_date": "2026-03-16",
+    "contact_email": "talent@vervegrowth.example.com"
+  },
+  {
+    "id": "JOB-1008",
+    "title": "Business Analyst - Enterprise Systems",
+    "company": "Strata Consulting Group",
+    "location": "Bengaluru, India",
+    "employment_type": "Full-time",
+    "work_arrangement": "On-site",
+    "experience_level": "Mid-level",
+    "salary_min": 900000,
+    "salary_max": 1400000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b99L - \u20b914L / year",
+    "description": "Join our enterprise transformation initiative. Bridge the gap between business stakeholders and software engineering teams by gathering and modeling requirements.",
+    "responsibilities": [
+      "Facilitate stakeholder workshops to elicit detailed functional requirements.",
+      "Draft Business Requirement Documents (BRD) and User Stories with acceptance criteria.",
+      "Model end-to-end business workflows using BPMN diagrams.",
+      "Assist during User Acceptance Testing (UAT) and user training sessions."
+    ],
+    "required_skills": [
+      "Business Analysis",
+      "Requirements Gathering",
+      "SQL",
+      "Agile",
+      "Jira",
+      "Process Mapping"
+    ],
+    "preferred_skills": [
+      "SAP ERP",
+      "Visio",
+      "Tableau",
+      "Scrum Master"
+    ],
+    "education": "B.Tech + MBA or equivalent business analytics degree",
+    "application_instructions": "Submit CV highlighting enterprise systems migration experience.",
+    "application_url": null,
+    "posted_date": "2026-03-08",
+    "contact_email": "recruiting@strataconsulting.example.com"
+  },
+  {
+    "id": "JOB-1009",
+    "title": "Customer Support Representative",
+    "company": "HelpDesk Hero",
+    "location": "Kolkata, India",
+    "employment_type": "Full-time",
+    "work_arrangement": "Remote",
+    "experience_level": "Entry-level",
+    "salary_min": 320000,
+    "salary_max": 450000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b93.2L - \u20b94.5L / year",
+    "description": "Provide compassionate, timely technical and billing support to SaaS users worldwide via live chat, email tickets, and occasional video calls.",
+    "responsibilities": [
+      "Respond to incoming customer inquiries through Zendesk within SLA windows.",
+      "Troubleshoot basic software configuration and billing account issues.",
+      "Escalate unresolved product bugs to level-2 engineering teams.",
+      "Contribute clear troubleshooting articles to the public knowledge base."
+    ],
+    "required_skills": [
+      "Customer Service",
+      "Communication",
+      "Problem Solving",
+      "Troubleshooting",
+      "CRM"
+    ],
+    "preferred_skills": [
+      "Zendesk",
+      "Intercom",
+      "Basic HTML",
+      "Conflict Resolution"
+    ],
+    "education": "High School Diploma or Bachelor's Degree in any discipline",
+    "application_instructions": "Apply with resume. Candidates should possess strong written English communication.",
+    "application_url": null,
+    "posted_date": "2026-03-21",
+    "contact_email": "support-jobs@helpdeskhero.example.com"
+  },
+  {
+    "id": "JOB-1010",
+    "title": "DevOps & Cloud Engineer",
+    "company": "CloudForge Infrastructure",
+    "location": "Hyderabad, India",
+    "employment_type": "Full-time",
+    "work_arrangement": "Hybrid",
+    "experience_level": "Mid-level",
+    "salary_min": 1400000,
+    "salary_max": 2000000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b914L - \u20b920L / year",
+    "description": "Manage multi-cloud infrastructure, automate continuous deployment pipelines, and ensure high availability across containerized Kubernetes clusters.",
+    "responsibilities": [
+      "Manage AWS and GCP cloud infrastructure using Terraform Infrastructure-as-Code.",
+      "Design and optimize GitHub Actions and GitLab CI/CD build and deploy pipelines.",
+      "Oversee Kubernetes cluster operations, Helm charts, and service meshes.",
+      "Maintain Prometheus and Grafana alerting systems for system health and uptime."
+    ],
+    "required_skills": [
+      "DevOps",
+      "Docker",
+      "Kubernetes",
+      "AWS",
+      "CI/CD",
+      "Linux",
+      "Terraform"
+    ],
+    "preferred_skills": [
+      "Python",
+      "Prometheus",
+      "GCP",
+      "Ansible"
+    ],
+    "education": "Bachelor's degree in Computer Science or equivalent hands-on experience",
+    "application_instructions": "Submit resume outlining past infrastructure automation work.",
+    "application_url": "https://careers.cloudforge.example.com/openings/devops-cloud",
+    "posted_date": "2026-03-11",
+    "contact_email": "careers@cloudforge.example.com"
+  },
+  {
+    "id": "JOB-1011",
+    "title": "Part-time STEM Tutor (Computer Science)",
+    "company": "BrightMinds Academy",
+    "location": "Jaipur, India",
+    "employment_type": "Part-time",
+    "work_arrangement": "Remote",
+    "experience_level": "Entry-level",
+    "salary_min": 200000,
+    "salary_max": 350000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b92.0L - \u20b93.5L / year (15 hrs/wk)",
+    "description": "Teach fundamental programming concepts, algorithmic logic, and web basics to secondary school and undergraduate students in small online cohorts.",
+    "responsibilities": [
+      "Conduct interactive live tutoring sessions covering Python, C++, and basic data structures.",
+      "Review homework assignments and provide constructive, encouraging code feedback.",
+      "Help students prepare for university coding lab exams and competitive tests.",
+      "Maintain regular progress reports for parents and academic mentors."
+    ],
+    "required_skills": [
+      "Teaching",
+      "Python",
+      "Data Structures",
+      "Communication",
+      "Problem Solving"
+    ],
+    "preferred_skills": [
+      "C++",
+      "Java",
+      "Curriculum Design",
+      "Online Tutoring"
+    ],
+    "education": "Pursuing or completed B.Tech/B.Sc in Computer Science or Mathematics",
+    "application_instructions": "Submit resume and a brief explanation of your tutoring philosophy.",
+    "application_url": null,
+    "posted_date": "2026-03-19",
+    "contact_email": "tutors@brightminds.example.com"
+  },
+  {
+    "id": "JOB-1012",
+    "title": "UI/UX Product Designer",
+    "company": "Aura Design Works",
+    "location": "Bengaluru, India",
+    "employment_type": "Full-time",
+    "work_arrangement": "Remote",
+    "experience_level": "Mid-level",
+    "salary_min": 1000000,
+    "salary_max": 1600000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b910L - \u20b916L / year",
+    "description": "Design sleek, user-centric mobile and web experiences for fast-moving fintech and healthtech products.",
+    "responsibilities": [
+      "Conduct user interviews, usability testing, and persona development.",
+      "Create wireframes, interactive Figma prototypes, and comprehensive design systems.",
+      "Collaborate tightly with product managers and engineers during sprint delivery.",
+      "Audit existing user journeys to eliminate friction and elevate visual clarity."
+    ],
+    "required_skills": [
+      "Figma",
+      "UI/UX Design",
+      "Wireframing",
+      "Prototyping",
+      "User Research"
+    ],
+    "preferred_skills": [
+      "Design Systems",
+      "HTML/CSS Knowledge",
+      "Micro-interactions",
+      "Usability Testing"
+    ],
+    "education": "Design degree (B.Des/M.Des) or strong portfolio demonstrating end-to-end design thinking",
+    "application_instructions": "Applications without a portfolio link (Figma/Behance/Personal Site) will not be reviewed.",
+    "application_url": "https://www.linkedin.com/jobs/view/ui-ux-designer-aura-design",
+    "posted_date": "2026-03-17",
+    "contact_email": "design@auraworks.example.com"
+  },
+  {
+    "id": "JOB-1013",
+    "title": "Financial Operations Associate",
+    "company": "Beacon Wealth Advisory",
+    "location": "Mumbai, India",
+    "employment_type": "Full-time",
+    "work_arrangement": "On-site",
+    "experience_level": "Entry-level",
+    "salary_min": 400000,
+    "salary_max": 600000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b94.0L - \u20b96.0L / year",
+    "description": "Support daily financial reconciliations, compliance audits, and portfolio reporting for high-net-worth individual client accounts.",
+    "responsibilities": [
+      "Perform daily cash ledger and banking transaction reconciliations.",
+      "Prepare monthly valuation summaries and risk statements for account managers.",
+      "Verify adherence to SEBI and KYC regulatory guidelines.",
+      "Assist in streamline internal auditing spreadsheets and financial databases."
+    ],
+    "required_skills": [
+      "Financial Analysis",
+      "Excel",
+      "Accounting",
+      "Reporting",
+      "Auditing"
+    ],
+    "preferred_skills": [
+      "Tally ERP",
+      "SQL",
+      "Financial Modeling",
+      "KYC Compliance"
+    ],
+    "education": "B.Com, BBA in Finance, or Inter CA",
+    "application_instructions": "Submit CV detailing your coursework and internship experience in accounting.",
+    "application_url": null,
+    "posted_date": "2026-03-13",
+    "contact_email": "careers@beaconwealth.example.com"
+  },
+  {
+    "id": "JOB-1014",
+    "title": "Part-time Event Operations Coordinator",
+    "company": "Summit Experiential",
+    "location": "Goa, India",
+    "employment_type": "Part-time",
+    "work_arrangement": "On-site",
+    "experience_level": "Entry-level",
+    "salary_min": 360000,
+    "salary_max": 540000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b93.6L - \u20b95.4L / year",
+    "description": "Coordinate logistics, attendee registration desks, and vendor management for international technology conventions and regional events.",
+    "responsibilities": [
+      "Manage on-ground check-in booths and attendee badge issuance.",
+      "Liaise with catering vendors, AV technical crew, and hospitality staff.",
+      "Troubleshoot attendee schedule queries and coordinate VIP transport.",
+      "Conduct post-event equipment inventory audits."
+    ],
+    "required_skills": [
+      "Event Management",
+      "Communication",
+      "Vendor Management",
+      "Logistics",
+      "Problem Solving"
+    ],
+    "preferred_skills": [
+      "Hospitality",
+      "Spreadsheets",
+      "Crowd Management"
+    ],
+    "education": "Any Bachelor's degree or Diploma in Event Management / Hospitality",
+    "application_instructions": "Apply with resume; candidate must be locally available in Goa.",
+    "application_url": null,
+    "posted_date": "2026-03-22",
+    "contact_email": "events@summitexp.example.com"
+  },
+  {
+    "id": "JOB-1015",
+    "title": "Cybersecurity Analyst",
+    "company": "Vigilant Guard Cyber Solutions",
+    "location": "Bengaluru, India",
+    "employment_type": "Full-time",
+    "work_arrangement": "Hybrid",
+    "experience_level": "Mid-level",
+    "salary_min": 1100000,
+    "salary_max": 1700000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b911L - \u20b917L / year",
+    "description": "Protect critical cloud workloads and internal corporate networks against advanced persistent threats and vulnerability exploits.",
+    "responsibilities": [
+      "Monitor SIEM alerts and investigate security incidents in real time.",
+      "Conduct vulnerability assessments and penetration tests across network endpoints.",
+      "Develop incident response playbooks and enforce secure coding guidelines.",
+      "Configure firewalls, IDS/IPS sensors, and endpoint detection agents."
+    ],
+    "required_skills": [
+      "Cybersecurity",
+      "Network Security",
+      "SIEM",
+      "Vulnerability Assessment",
+      "Linux"
+    ],
+    "preferred_skills": [
+      "CEH",
+      "Wireshark",
+      "Python Scripting",
+      "Cloud Security"
+    ],
+    "education": "B.Tech in CS/IT or specialized Cybersecurity degree",
+    "application_instructions": "Attach resume and any active security certifications (Security+, CEH, CISSP).",
+    "application_url": "https://www.linkedin.com/jobs/view/cybersecurity-analyst-vigilant-guard",
+    "posted_date": "2026-03-09",
+    "contact_email": "security@vigilantguard.example.com"
+  },
+  {
+    "id": "JOB-1016",
+    "title": "Mobile App Developer (Flutter)",
+    "company": "AppNova Technologies",
+    "location": "Kochi, India",
+    "employment_type": "Full-time",
+    "work_arrangement": "Remote",
+    "experience_level": "Mid-level",
+    "salary_min": 750000,
+    "salary_max": 1200000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b97.5L - \u20b912.0L / year",
+    "description": "Develop multi-platform mobile applications for iOS and Android using Google Flutter and Dart with clean architecture.",
+    "responsibilities": [
+      "Implement smooth Flutter UIs following Material 3 and Cupertino design patterns.",
+      "Integrate native hardware sensors, push notifications, and background sync services.",
+      "Manage app state efficiently using Bloc or Riverpod patterns.",
+      "Deploy builds to Google Play Store and Apple App Store TestFlight."
+    ],
+    "required_skills": [
+      "Flutter",
+      "Dart",
+      "Mobile App Development",
+      "REST APIs",
+      "Git"
+    ],
+    "preferred_skills": [
+      "Firebase",
+      "iOS Deployment",
+      "State Management",
+      "SQLite"
+    ],
+    "education": "B.Tech/MCA or equivalent demonstrable mobile development track record",
+    "application_instructions": "Include links to published apps on Google Play or Apple App Store.",
+    "application_url": null,
+    "posted_date": "2026-03-15",
+    "contact_email": "apps@appnovatech.example.com"
+  },
+  {
+    "id": "JOB-1017",
+    "title": "Full Stack Web Developer",
+    "company": "NovaByte Software",
+    "location": "Ahmedabad, India",
+    "employment_type": "Full-time",
+    "work_arrangement": "Hybrid",
+    "experience_level": "Mid-level",
+    "salary_min": 900000,
+    "salary_max": 1500000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b99.0L - \u20b915.0L / year",
+    "description": "Build end-to-end customer portals leveraging Node.js, Express, React, and MongoDB/PostgreSQL.",
+    "responsibilities": [
+      "Develop responsive client-side pages and connect with backend GraphQL and REST APIs.",
+      "Design database schemas, indexing strategies, and query optimizations.",
+      "Maintain authentication workflows using OAuth2 and JWT tokens.",
+      "Write automated integration tests and participate in sprint planning."
+    ],
+    "required_skills": [
+      "JavaScript",
+      "Node.js",
+      "React",
+      "SQL",
+      "HTML5",
+      "CSS3",
+      "Git"
+    ],
+    "preferred_skills": [
+      "Express.js",
+      "TypeScript",
+      "Docker",
+      "GraphQL"
+    ],
+    "education": "B.Tech/BE in Computer Engineering or related field",
+    "application_instructions": "Submit resume and link to GitHub profile.",
+    "application_url": "https://www.linkedin.com/jobs/view/full-stack-developer-novabyte",
+    "posted_date": "2026-03-12",
+    "contact_email": "talent@novabytesoft.example.com"
+  },
+  {
+    "id": "JOB-1018",
+    "title": "QA Automation Engineer",
+    "company": "QualiTech Systems",
+    "location": "Noida, India",
+    "employment_type": "Full-time",
+    "work_arrangement": "On-site",
+    "experience_level": "Mid-level",
+    "salary_min": 650000,
+    "salary_max": 1100000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b96.5L - \u20b911.0L / year",
+    "description": "Architect test automation frameworks for web applications and microservices to ensure software stability and regression safety.",
+    "responsibilities": [
+      "Write automated end-to-end regression suites using Selenium, Cypress, or Playwright.",
+      "Perform automated REST API testing using Postman and PyTest.",
+      "Integrate test suites into Jenkins and GitHub Actions CI pipelines.",
+      "Document defect reports with detailed reproduction steps and logs."
+    ],
+    "required_skills": [
+      "QA Automation",
+      "Selenium",
+      "Python",
+      "Test Automation",
+      "Jira",
+      "SQL"
+    ],
+    "preferred_skills": [
+      "Playwright",
+      "Cypress",
+      "Postman",
+      "CI/CD"
+    ],
+    "education": "Bachelor's degree in engineering or information technology",
+    "application_instructions": "Apply with your resume highlighting your test framework design experience.",
+    "application_url": null,
+    "posted_date": "2026-03-14",
+    "contact_email": "qa-jobs@qualitech.example.com"
+  },
+  {
+    "id": "JOB-1019",
+    "title": "AI Research Scientist - NLP",
+    "company": "Cognitive Frontiers",
+    "location": "Bengaluru, India",
+    "employment_type": "Full-time",
+    "work_arrangement": "Hybrid",
+    "experience_level": "Senior-level",
+    "salary_min": 2500000,
+    "salary_max": 3800000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b925L - \u20b938L / year",
+    "description": "Lead applied research in Retrieval-Augmented Generation (RAG), parameter-efficient fine-tuning (LoRA), and semantic search indexing.",
+    "responsibilities": [
+      "Conduct empirical experiments on LLM reasoning, alignment, and hallucination reduction.",
+      "Build custom vector search embeddings and dense retrieval benchmarks.",
+      "Publish internal research findings and author patents/whitepapers.",
+      "Work with engineering teams to optimize inference latency on GPU clusters."
+    ],
+    "required_skills": [
+      "Python",
+      "Deep Learning",
+      "NLP",
+      "PyTorch",
+      "Transformers",
+      "LLMs"
+    ],
+    "preferred_skills": [
+      "Hugging Face",
+      "CUDA",
+      "LangChain",
+      "Vector Databases"
+    ],
+    "education": "M.Tech or Ph.D. in Computer Science, Computational Linguistics, or AI",
+    "application_instructions": "Submit academic CV and links to Google Scholar or arXiv publications.",
+    "application_url": "https://careers.cognitivefrontiers.example.com/research-nlp",
+    "posted_date": "2026-03-05",
+    "contact_email": "research@cognitivefrontiers.example.com"
+  },
+  {
+    "id": "JOB-1020",
+    "title": "HR & Talent Acquisition Specialist",
+    "company": "PeopleFirst HR Solutions",
+    "location": "Gurugram, India",
+    "employment_type": "Full-time",
+    "work_arrangement": "On-site",
+    "experience_level": "Mid-level",
+    "salary_min": 550000,
+    "salary_max": 850000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b95.5L - \u20b98.5L / year",
+    "description": "Manage technical talent sourcing, candidate screening, interview coordination, and onboarding for high-growth tech startups.",
+    "responsibilities": [
+      "Source qualified software engineering and product candidates on LinkedIn and job portals.",
+      "Conduct initial culture-fit and salary expectation screening calls.",
+      "Coordinate interview loops with hiring managers and lead debrief sessions.",
+      "Facilitate seamless candidate onboarding and documentation compliance."
+    ],
+    "required_skills": [
+      "Talent Acquisition",
+      "Technical Recruiting",
+      "Sourcing",
+      "HR Operations",
+      "Communication"
+    ],
+    "preferred_skills": [
+      "ATS Systems",
+      "LinkedIn Recruiter",
+      "Offer Negotiation"
+    ],
+    "education": "MBA in Human Resources or Bachelor's degree with recruiting experience",
+    "application_instructions": "Apply with your resume detailing your technical hiring track record.",
+    "application_url": null,
+    "posted_date": "2026-03-18",
+    "contact_email": "careers@peoplefirsthr.example.com"
+  },
+  {
+    "id": "JOB-1021",
+    "title": "Part-time Graphic Designer",
+    "company": "BrandPulse Agency",
+    "location": "Remote, Global",
+    "employment_type": "Part-time",
+    "work_arrangement": "Remote",
+    "experience_level": "Entry-level",
+    "salary_min": 300000,
+    "salary_max": 550000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b93.0L - \u20b95.5L / year (20 hrs/wk)",
+    "description": "Create modern social media banners, marketing brochures, brand identity kits, and infographics for digital ad campaigns on a flexible part-time schedule.",
+    "responsibilities": [
+      "Design static and animated creatives for Instagram, LinkedIn, and YouTube.",
+      "Adhere strictly to client visual identity guides, typography, and color tokens.",
+      "Incorporate art director feedback quickly across multiple revision rounds.",
+      "Deliver print-ready and web-optimized asset files."
+    ],
+    "required_skills": [
+      "Graphic Design",
+      "Photoshop",
+      "Illustrator",
+      "Branding",
+      "Creativity"
+    ],
+    "preferred_skills": [
+      "After Effects",
+      "Canva",
+      "Typography"
+    ],
+    "education": "Diploma or Degree in Fine Arts, Visual Communication, or strong creative portfolio",
+    "application_instructions": "Provide Behance, Dribbble, or online design portfolio.",
+    "application_url": null,
+    "posted_date": "2026-03-21",
+    "contact_email": "creative@brandpulse.example.com"
+  },
+  {
+    "id": "JOB-1022",
+    "title": "Product Operations Associate",
+    "company": "SwiftLogix Supply Chain",
+    "location": "Bengaluru, India",
+    "employment_type": "Full-time",
+    "work_arrangement": "Hybrid",
+    "experience_level": "Entry-level",
+    "salary_min": 450000,
+    "salary_max": 650000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b94.5L - \u20b96.5L / year",
+    "description": "Support daily logistics platform operations, fleet dispatch tracking, partner onboarding, and metric reporting.",
+    "responsibilities": [
+      "Track daily fulfillment exceptions and coordinate with field operations teams.",
+      "Audit driver and vendor compliance records.",
+      "Compile daily performance summaries for warehouse management.",
+      "Test new driver mobile app feature releases and log usability bottlenecks."
+    ],
+    "required_skills": [
+      "Operations",
+      "Problem Solving",
+      "Excel",
+      "Data Analysis",
+      "Communication"
+    ],
+    "preferred_skills": [
+      "Supply Chain",
+      "SQL",
+      "Logistics Software"
+    ],
+    "education": "Bachelor's degree in engineering, business, or logistics",
+    "application_instructions": "Submit resume outlining operational experience or relevant internships.",
+    "application_url": null,
+    "posted_date": "2026-03-16",
+    "contact_email": "ops@swiftlogix.example.com"
+  },
+  {
+    "id": "JOB-1023",
+    "title": "Cloud Security Architect",
+    "company": "SecureNet International",
+    "location": "Hyderabad, India",
+    "employment_type": "Full-time",
+    "work_arrangement": "Remote",
+    "experience_level": "Senior-level",
+    "salary_min": 2800000,
+    "salary_max": 4200000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b928L - \u20b942L / year",
+    "description": "Establish enterprise cloud defense architectures, IAM governance, container security policies, and zero-trust perimeter controls.",
+    "responsibilities": [
+      "Design multi-tenant cloud security baselines across AWS and Azure environments.",
+      "Conduct threat modeling for cloud-native microservices applications.",
+      "Automate security compliance scanning within CI/CD pipelines.",
+      "Direct incident response efforts during suspected unauthorized access events."
+    ],
+    "required_skills": [
+      "Cybersecurity",
+      "Cloud Security",
+      "AWS",
+      "Security Architecture",
+      "IAM"
+    ],
+    "preferred_skills": [
+      "Azure",
+      "CISSP",
+      "CCSP",
+      "Kubernetes Security"
+    ],
+    "education": "Degree in Computer Science or Information Security with 7+ years security experience",
+    "application_instructions": "Apply with full career history and verifiable security credentials.",
+    "application_url": "https://www.linkedin.com/jobs/view/cloud-security-architect-securenet",
+    "posted_date": "2026-03-02",
+    "contact_email": "security-lead@securenet.example.com"
+  },
+  {
+    "id": "JOB-1024",
+    "title": "Part-time Software Engineer (Backend)",
+    "company": "ZetaStack Technologies",
+    "location": "Bengaluru, India",
+    "employment_type": "Part-time",
+    "work_arrangement": "Hybrid",
+    "experience_level": "Entry-level",
+    "salary_min": 360000,
+    "salary_max": 540000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b93.6L - \u20b95.4L / year (20 hrs/week)",
+    "description": "Build backend microservices, caching layers, and database queries alongside experienced engineering mentors on a flexible part-time schedule.",
+    "responsibilities": [
+      "Implement CRUD APIs using Python Flask or Go under senior guidance.",
+      "Write unit tests and perform load testing using Apache Benchmark.",
+      "Participate in daily standups and sprint retrospectives.",
+      "Document API schemas using OpenAPI/Swagger."
+    ],
+    "required_skills": [
+      "Python",
+      "SQL",
+      "Git",
+      "REST APIs",
+      "Data Structures"
+    ],
+    "preferred_skills": [
+      "Docker",
+      "Linux",
+      "Redis"
+    ],
+    "education": "B.Tech/B.E. student or graduate in Computer Science or Information Technology",
+    "application_instructions": "Submit resume and links to academic or personal coding projects.",
+    "application_url": null,
+    "posted_date": "2026-03-20",
+    "contact_email": "internships@zetastack.example.com"
+  },
+  {
+    "id": "JOB-1025",
+    "title": "SEO & Content Marketing Specialist",
+    "company": "Optima Search Media",
+    "location": "Chandigarh, India",
+    "employment_type": "Full-time",
+    "work_arrangement": "Remote",
+    "experience_level": "Mid-level",
+    "salary_min": 500000,
+    "salary_max": 800000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b95.0L - \u20b98.0L / year",
+    "description": "Scale organic traffic for enterprise SaaS software through keyword strategy, on-page optimization, and authoritative backlink building.",
+    "responsibilities": [
+      "Perform competitor keyword gap analysis using Ahrefs and SEMrush.",
+      "Draft content briefs for freelance authors and optimize technical on-page metadata.",
+      "Audit website crawlability, redirect chains, and Core Web Vitals.",
+      "Track keyword rankings, organic impressions, and conversions in Google Search Console."
+    ],
+    "required_skills": [
+      "SEO",
+      "Content Strategy",
+      "Google Analytics",
+      "Keyword Research",
+      "Copywriting"
+    ],
+    "preferred_skills": [
+      "Ahrefs",
+      "Technical SEO",
+      "WordPress",
+      "HTML Basics"
+    ],
+    "education": "Bachelor's degree in Marketing, English, or related discipline",
+    "application_instructions": "Submit resume with examples of past organic search traffic growth.",
+    "application_url": "https://www.linkedin.com/jobs/view/seo-content-specialist-optima",
+    "posted_date": "2026-03-11",
+    "contact_email": "jobs@optimasearch.example.com"
+  },
+  {
+    "id": "JOB-1026",
+    "title": "Business Intelligence & SQL Developer",
+    "company": "MetricWave Solutions",
+    "location": "Pune, India",
+    "employment_type": "Full-time",
+    "work_arrangement": "Hybrid",
+    "experience_level": "Mid-level",
+    "salary_min": 850000,
+    "salary_max": 1300000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b98.5L - \u20b913.0L / year",
+    "description": "Design and maintain high-performance relational data warehouses, ETL routines, and automated reporting views for retail clients.",
+    "responsibilities": [
+      "Write complex SQL stored procedures, window functions, and query optimizations.",
+      "Design dimensional star and snowflake schemas in PostgreSQL / Snowflake.",
+      "Build automated data ingestion scripts using Python and cron/Airflow.",
+      "Create interactive Tableau and Power BI executive dashboards."
+    ],
+    "required_skills": [
+      "SQL",
+      "Data Warehousing",
+      "ETL",
+      "Power BI",
+      "Tableau",
+      "Python"
+    ],
+    "preferred_skills": [
+      "Snowflake",
+      "Airflow",
+      "PostgreSQL"
+    ],
+    "education": "B.Tech or MCA with strong database expertise",
+    "application_instructions": "Submit CV highlighting database modeling and query tuning experience.",
+    "application_url": null,
+    "posted_date": "2026-03-09",
+    "contact_email": "careers@metricwave.example.com"
+  },
+  {
+    "id": "JOB-1027",
+    "title": "Part-time Technical Support Specialist",
+    "company": "QuickFix Cloud Desk",
+    "location": "Jaipur, India",
+    "employment_type": "Part-time",
+    "work_arrangement": "Remote",
+    "experience_level": "Entry-level",
+    "salary_min": 220000,
+    "salary_max": 320000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b92.2L - \u20b93.2L / year (20 hrs/wk)",
+    "description": "Assist end-users in troubleshooting VPN access, email client synchronization, password resets, and SaaS permission configurations.",
+    "responsibilities": [
+      "Handle tier-1 IT helpdesk tickets through an automated ticketing system.",
+      "Walk remote employees through remote desktop troubleshooting steps.",
+      "Maintain active directory user group memberships and 2FA credentials.",
+      "Document frequent issue patterns to reduce ticket repeat volume."
+    ],
+    "required_skills": [
+      "Technical Support",
+      "Troubleshooting",
+      "Customer Service",
+      "Hardware/Software",
+      "Communication"
+    ],
+    "preferred_skills": [
+      "Active Directory",
+      "Windows Admin",
+      "Networking Basics"
+    ],
+    "education": "Diploma/Degree in IT, BCA, or ongoing university study",
+    "application_instructions": "Apply with resume. Weekend shift flexibility is appreciated.",
+    "application_url": null,
+    "posted_date": "2026-03-17",
+    "contact_email": "support-hiring@quickfixcloud.example.com"
+  },
+  {
+    "id": "JOB-1028",
+    "title": "Part-time Marketing Coordinator",
+    "company": "Acuity Media Events",
+    "location": "Mumbai, India",
+    "employment_type": "Part-time",
+    "work_arrangement": "On-site",
+    "experience_level": "Entry-level",
+    "salary_min": 350000,
+    "salary_max": 500000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b93.5L - \u20b95.0L / year",
+    "description": "Coordinate promotional campaigns, influencer outreach, distribution of promotional collateral, and sponsor booth logistics.",
+    "responsibilities": [
+      "Track sponsor deliverables and coordinate event branding materials.",
+      "Manage social media stories and live attendee engagement during event weekends.",
+      "Compile post-campaign media coverage and attendee feedback packets.",
+      "Coordinate with print shops and merchandise vendors."
+    ],
+    "required_skills": [
+      "Marketing",
+      "Communication",
+      "Social Media",
+      "Event Planning",
+      "Coordination"
+    ],
+    "preferred_skills": [
+      "Canva",
+      "Public Relations",
+      "Influencer Marketing"
+    ],
+    "education": "Bachelor's degree in Mass Media, Communications, or Marketing",
+    "application_instructions": "Submit resume with notes on previous marketing projects.",
+    "application_url": null,
+    "posted_date": "2026-03-21",
+    "contact_email": "talent@acuitymedia.example.com"
+  },
+  {
+    "id": "JOB-1029",
+    "title": "Senior Solutions Architect",
+    "company": "Enterprise Nexa Systems",
+    "location": "Bengaluru, India",
+    "employment_type": "Full-time",
+    "work_arrangement": "Hybrid",
+    "experience_level": "Senior-level",
+    "salary_min": 3000000,
+    "salary_max": 4500000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b930L - \u20b945L / year",
+    "description": "Lead enterprise architecture modernization, client technical discovery sessions, and cloud migration roadmaps for Fortune 500 enterprises.",
+    "responsibilities": [
+      "Author comprehensive enterprise technology blueprints and system architecture diagrams.",
+      "Advise C-level client executives on cloud adoption, modernization, and ROI trade-offs.",
+      "Define non-functional requirements including disaster recovery, failover, and compliance.",
+      "Guide implementation teams during critical architecture transformation phases."
+    ],
+    "required_skills": [
+      "System Design",
+      "Cloud Architecture",
+      "AWS",
+      "Enterprise Architecture",
+      "Microservices",
+      "Leadership"
+    ],
+    "preferred_skills": [
+      "GCP",
+      "Kubernetes",
+      "TOGAF",
+      "Cost Optimization"
+    ],
+    "education": "B.Tech/M.Tech in CS/IT with 10+ years engineering and architecture experience",
+    "application_instructions": "Submit detailed resume highlighting past major enterprise architecture projects.",
+    "application_url": "https://www.linkedin.com/jobs/view/senior-solutions-architect-nexa",
+    "posted_date": "2026-03-01",
+    "contact_email": "architects@enterprisenexa.example.com"
+  },
+  {
+    "id": "JOB-1030",
+    "title": "Junior Data Scientist",
+    "company": "InsightFlow Analytics",
+    "location": "Hyderabad, India",
+    "employment_type": "Full-time",
+    "work_arrangement": "Remote",
+    "experience_level": "Entry-level",
+    "salary_min": 600000,
+    "salary_max": 900000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b96.0L - \u20b99.0L / year",
+    "description": "Join our analytics team to build exploratory statistical models, customer churn predictors, and sales forecasting algorithms.",
+    "responsibilities": [
+      "Perform exploratory data analysis and hypothesis testing on large customer datasets.",
+      "Build regression, classification, and time-series models using Python.",
+      "Communicate data findings through clear visual dashboards and presentations.",
+      "Collaborate with data engineers to deploy validated models into batch scoring pipelines."
+    ],
+    "required_skills": [
+      "Python",
+      "Pandas",
+      "scikit-learn",
+      "SQL",
+      "Statistics",
+      "Data Visualization"
+    ],
+    "preferred_skills": [
+      "NumPy",
+      "Matplotlib",
+      "Seaborn",
+      "Jupyter"
+    ],
+    "education": "B.Tech/B.Sc in Computer Science, Statistics, Mathematics, or Data Science",
+    "application_instructions": "Submit resume and links to GitHub or Kaggle data science repositories.",
+    "application_url": "https://careers.insightflow.example.com/apply/jr-data-scientist",
+    "posted_date": "2026-03-15",
+    "contact_email": "ds-careers@insightflow.example.com"
+  },
+  {
+    "id": "JOB-1031",
+    "title": "Urgent Data Entry Specialist - Equipment Deposit Required (Test Case)",
+    "company": "QuickCash Global Ventures",
+    "location": "Remote, Global",
+    "employment_type": "Part-time",
+    "work_arrangement": "Remote",
+    "experience_level": "Entry-level",
+    "salary_min": 3500000,
+    "salary_max": 5000000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b935L - \u20b950L / year (Unrealistic for Entry Data Entry)",
+    "description": "Illustrative Test Listing for Suspicious Job Detection: Earn $150/hour working from home! No experience required at all. All applicants must send a $150 onboarding fee and equipment deposit via cryptocurrency or wire transfer before receiving the job laptop. Immediate hire! Contact our Telegram handle @QuickCashJobs immediately with your bank details.",
+    "responsibilities": [
+      "Copy and paste data into spreadsheets.",
+      "Send payment for software registration kit.",
+      "Provide bank account login details for direct deposit."
+    ],
+    "required_skills": [
+      "Data Entry",
+      "Typing"
+    ],
+    "preferred_skills": [],
+    "education": "No education needed",
+    "application_instructions": "Pay upfront registration fee of $150 via crypto to receive materials.",
+    "application_url": null,
+    "posted_date": "2026-03-22",
+    "contact_email": "freecash9992@gmail.com",
+    "is_test_case": true
+  },
+  {
+    "id": "JOB-1032",
+    "title": "Secret Mystery Shopper - Wire Transfer Coordinator (Test Case)",
+    "company": "Global Secret Shoppers Network",
+    "location": "Mumbai, India",
+    "employment_type": "Part-time",
+    "work_arrangement": "Remote",
+    "experience_level": "Entry-level",
+    "salary_min": 2500000,
+    "salary_max": 4000000,
+    "salary_currency": "INR",
+    "salary_display": "\u20b925L - \u20b940L / year (Suspicious)",
+    "description": "Illustrative Test Listing for Suspicious Job Detection: Work as an anonymous secret mystery shopper. We will send you an initial company cheque for $3000. You must deposit it in your personal account, keep $500, and immediately wire the remaining $2500 via Western Union or Bitcoin to our regional vendor. Urgent response required.",
+    "responsibilities": [
+      "Deposit company cheque in personal bank account.",
+      "Wire funds immediately to third-party accounts.",
+      "Keep remaining funds as personal commission."
+    ],
+    "required_skills": [
+      "Shopping",
+      "Banking"
+    ],
+    "preferred_skills": [],
+    "education": "None",
+    "application_instructions": "Send your bank account details and ID card copy to urgent-careers@yahoo.com.",
+    "application_url": null,
+    "posted_date": "2026-03-22",
+    "contact_email": "urgent-careers@yahoo.com",
+    "is_test_case": true
+  }
+]

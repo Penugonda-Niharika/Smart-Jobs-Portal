@@ -1,0 +1,260 @@
+{
+  "roles": {
+    "python_developer": {
+      "title": "Python Developer",
+      "category": "Software Engineering",
+      "core_skills": ["Python", "Flask", "REST APIs", "SQL", "Git"],
+      "advanced_skills": ["Docker", "FastAPI", "PostgreSQL", "Linux", "CI/CD", "Redis"],
+      "roadmap": [
+        {
+          "phase": "Phase 1: Python Fundamentals & Data Structures",
+          "focus": "Master Python syntax, OOP concepts, list comprehensions, exception handling, and virtual environments.",
+          "priority": "High",
+          "estimated_weeks": "3-4 weeks"
+        },
+        {
+          "phase": "Phase 2: Web Frameworks & REST APIs",
+          "focus": "Build RESTful APIs using Flask or FastAPI; handle routing, request validation, authentication, and HTTP status codes.",
+          "priority": "High",
+          "estimated_weeks": "4 weeks"
+        },
+        {
+          "phase": "Phase 3: Database Integration & ORMs",
+          "focus": "Work with SQL databases (PostgreSQL/SQLite), design relational schemas, write queries, and integrate SQLAlchemy.",
+          "priority": "High",
+          "estimated_weeks": "3 weeks"
+        },
+        {
+          "phase": "Phase 4: Testing, Containerization & Deployment",
+          "focus": "Write PyTest test suites, containerize apps with Docker, and deploy microservices with Gunicorn to cloud servers.",
+          "priority": "Medium",
+          "estimated_weeks": "2-3 weeks"
+        }
+      ]
+    },
+    "machine_learning_engineer": {
+      "title": "Machine Learning Engineer",
+      "category": "Data & AI",
+      "core_skills": ["Python", "Machine Learning", "scikit-learn", "Pandas", "SQL", "Statistics"],
+      "advanced_skills": ["PyTorch", "NLP", "MLOps", "Docker", "Deep Learning", "FastAPI"],
+      "roadmap": [
+        {
+          "phase": "Phase 1: Mathematics & Data Manipulation",
+          "focus": "Linear algebra, multivariable calculus, probability, NumPy matrix math, and Pandas feature engineering.",
+          "priority": "High",
+          "estimated_weeks": "4 weeks"
+        },
+        {
+          "phase": "Phase 2: Classical Machine Learning",
+          "focus": "Regression, classification, decision trees, random forests, clustering, cross-validation, and metrics (Precision, Recall, ROC-AUC).",
+          "priority": "High",
+          "estimated_weeks": "4 weeks"
+        },
+        {
+          "phase": "Phase 3: Deep Learning & NLP Basics",
+          "focus": "Neural network architectures, PyTorch tensors, backpropagation, and text preprocessing using TF-IDF and tokenizers.",
+          "priority": "Medium",
+          "estimated_weeks": "4 weeks"
+        },
+        {
+          "phase": "Phase 4: Model Serving & MLOps",
+          "focus": "Packaging models into inference endpoints using FastAPI, containerization, and monitoring performance in production.",
+          "priority": "Medium",
+          "estimated_weeks": "3 weeks"
+        }
+      ]
+    },
+    "frontend_developer": {
+      "title": "Frontend React / UI Developer",
+      "category": "Software Engineering",
+      "core_skills": ["JavaScript", "HTML5", "CSS3", "React", "Responsive Design", "Git"],
+      "advanced_skills": ["TypeScript", "TailwindCSS", "Next.js", "Jest", "State Management", "Figma"],
+      "roadmap": [
+        {
+          "phase": "Phase 1: Modern Semantic HTML & CSS3",
+          "focus": "Semantic layout tags, Flexbox, CSS Grid, media queries, CSS variables, and accessibility best practices.",
+          "priority": "High",
+          "estimated_weeks": "3 weeks"
+        },
+        {
+          "phase": "Phase 2: Modern JavaScript (ES6+)",
+          "focus": "DOM manipulation, closures, promises, async/await, fetch API, array methods, and modular code organization.",
+          "priority": "High",
+          "estimated_weeks": "4 weeks"
+        },
+        {
+          "phase": "Phase 3: React Fundamentals & Hooks",
+          "focus": "Component lifecycles, useState, useEffect, custom hooks, props drilling vs context API, and routing.",
+          "priority": "High",
+          "estimated_weeks": "4 weeks"
+        },
+        {
+          "phase": "Phase 4: TypeScript, Performance & Testing",
+          "focus": "Typing React components, optimizing bundle sizes, unit testing with Jest/React Testing Library, and production build tooling.",
+          "priority": "Medium",
+          "estimated_weeks": "3 weeks"
+        }
+      ]
+    },
+    "data_analyst": {
+      "title": "Data Analyst",
+      "category": "Analytics",
+      "core_skills": ["SQL", "Excel", "Python", "Data Visualization", "Power BI", "Statistics"],
+      "advanced_skills": ["Tableau", "Pandas", "ETL", "Data Modeling", "Business Intelligence"],
+      "roadmap": [
+        {
+          "phase": "Phase 1: Advanced Excel & Business Math",
+          "focus": "VLOOKUP/XLOOKUP, Pivot tables, descriptive statistics, financial modeling formulas, and conditional logic.",
+          "priority": "High",
+          "estimated_weeks": "2-3 weeks"
+        },
+        {
+          "phase": "Phase 2: Relational Databases & SQL Mastery",
+          "focus": "Complex JOINS, aggregations, GROUP BY, subqueries, CTEs, and window functions on PostgreSQL/MySQL.",
+          "priority": "High",
+          "estimated_weeks": "4 weeks"
+        },
+        {
+          "phase": "Phase 3: BI Dashboards & Storytelling",
+          "focus": "Building interactive dashboards in Power BI or Tableau, KPI card creation, data modeling, and executive reports.",
+          "priority": "High",
+          "estimated_weeks": "3 weeks"
+        },
+        {
+          "phase": "Phase 4: Exploratory Python Analytics",
+          "focus": "Data wrangling with Pandas, plotting with Matplotlib/Seaborn, and generating automated automated summary spreadsheets.",
+          "priority": "Medium",
+          "estimated_weeks": "3 weeks"
+        }
+      ]
+    },
+    "devops_engineer": {
+      "title": "DevOps & Cloud Engineer",
+      "category": "Infrastructure",
+      "core_skills": ["Linux", "Docker", "Kubernetes", "AWS", "CI/CD", "Git", "Terraform"],
+      "advanced_skills": ["Python", "Prometheus", "Ansible", "GCP", "Bash Scripting", "Helm"],
+      "roadmap": [
+        {
+          "phase": "Phase 1: Linux Administration & Shell Scripting",
+          "focus": "File permissions, systemd services, networking fundamentals (DNS, TCP/IP, SSH), and Bash automation scripts.",
+          "priority": "High",
+          "estimated_weeks": "3 weeks"
+        },
+        {
+          "phase": "Phase 2: Containerization with Docker",
+          "focus": "Dockerfiles, multi-stage builds, container networking, volumes, and multi-service docker-compose setups.",
+          "priority": "High",
+          "estimated_weeks": "3 weeks"
+        },
+        {
+          "phase": "Phase 3: Cloud Fundamentals & CI/CD Pipelines",
+          "focus": "Core AWS services (EC2, S3, IAM, VPC), automated GitHub Actions/GitLab CI testing, and deployment jobs.",
+          "priority": "High",
+          "estimated_weeks": "4 weeks"
+        },
+        {
+          "phase": "Phase 4: Kubernetes Orchestration & Infrastructure-as-Code",
+          "focus": "Deployments, Services, Ingress, Pod autoscaling, and managing cloud resources reproducibly with Terraform.",
+          "priority": "Medium",
+          "estimated_weeks": "4 weeks"
+        }
+      ]
+    },
+    "cybersecurity_analyst": {
+      "title": "Cybersecurity Analyst",
+      "category": "Security",
+      "core_skills": ["Cybersecurity", "Network Security", "Linux", "SIEM", "Vulnerability Assessment"],
+      "advanced_skills": ["Wireshark", "Python Scripting", "CEH", "Cloud Security", "Incident Response"],
+      "roadmap": [
+        {
+          "phase": "Phase 1: Networking & Operating System Fundamentals",
+          "focus": "OSI model, packet structures, firewalls, ports, protocols, Linux security configurations, and permissions.",
+          "priority": "High",
+          "estimated_weeks": "4 weeks"
+        },
+        {
+          "phase": "Phase 2: Threat Detection & SIEM Tools",
+          "focus": "Log analysis, intrusion detection (IDS/IPS), monitoring security events using Splunk/ELK, and threat intelligence.",
+          "priority": "High",
+          "estimated_weeks": "4 weeks"
+        },
+        {
+          "phase": "Phase 3: Vulnerability Scanning & Web App Security",
+          "focus": "OWASP Top 10 vulnerabilities (SQLi, XSS, CSRF), scanning with Nmap/Nessus, and basic remediation practices.",
+          "priority": "High",
+          "estimated_weeks": "3-4 weeks"
+        },
+        {
+          "phase": "Phase 4: Incident Response & Compliance Standards",
+          "focus": "Incident triage, containment playbooks, forensic evidence preservation, and ISO 27001 / NIST frameworks.",
+          "priority": "Medium",
+          "estimated_weeks": "3 weeks"
+        }
+      ]
+    },
+    "business_analyst": {
+      "title": "Business Analyst",
+      "category": "Management & Strategy",
+      "core_skills": ["Business Analysis", "Requirements Gathering", "SQL", "Agile", "Jira", "Process Mapping"],
+      "advanced_skills": ["Tableau", "Visio", "Scrum Master", "UAT Testing", "Data Analysis"],
+      "roadmap": [
+        {
+          "phase": "Phase 1: Stakeholder Communication & Requirements Elicitation",
+          "focus": "Conducting interviews, workshop facilitation, translating business pain points into structured user stories.",
+          "priority": "High",
+          "estimated_weeks": "3 weeks"
+        },
+        {
+          "phase": "Phase 2: Process Modeling & Documentation",
+          "focus": "BPMN 2.0 flowcharts, Business Requirements Documents (BRDs), functional specifications, and wireframes.",
+          "priority": "High",
+          "estimated_weeks": "3 weeks"
+        },
+        {
+          "phase": "Phase 3: Agile & Project Management Tooling",
+          "focus": "Scrum ceremonies, backlog grooming, sprint planning, Jira workflow configuration, and release tracking.",
+          "priority": "High",
+          "estimated_weeks": "3 weeks"
+        },
+        {
+          "phase": "Phase 4: Quantitative Validation & UAT",
+          "focus": "Validating hypotheses using SQL queries, facilitating User Acceptance Testing, and managing change adoption.",
+          "priority": "Medium",
+          "estimated_weeks": "3 weeks"
+        }
+      ]
+    },
+    "digital_marketing": {
+      "title": "Digital Marketing Specialist",
+      "category": "Growth & Marketing",
+      "core_skills": ["SEO", "Google Ads", "Social Media Marketing", "Content Strategy", "Analytics"],
+      "advanced_skills": ["Google Tag Manager", "Copywriting", "A/B Testing", "Email Automation", "HubSpot"],
+      "roadmap": [
+        {
+          "phase": "Phase 1: Marketing Funnels & Audience Research",
+          "focus": "Top/Middle/Bottom funnel stages, buyer persona mapping, brand positioning, and content messaging.",
+          "priority": "High",
+          "estimated_weeks": "2-3 weeks"
+        },
+        {
+          "phase": "Phase 2: Organic Search (SEO) & Content Planning",
+          "focus": "Keyword research, technical on-page SEO, link architecture, search intent matching, and content creation.",
+          "priority": "High",
+          "estimated_weeks": "4 weeks"
+        },
+        {
+          "phase": "Phase 3: Paid Acquisition (Search & Social)",
+          "focus": "Google Search ads, Meta campaign structure, audience targeting, ad creatives, and bidding strategies.",
+          "priority": "High",
+          "estimated_weeks": "3 weeks"
+        },
+        {
+          "phase": "Phase 4: Analytics, Attribution & Conversion Rate Optimization",
+          "focus": "GA4 event tracking, UTM parameters, conversion funnels, landing page A/B testing, and ROAS calculations.",
+          "priority": "Medium",
+          "estimated_weeks": "3 weeks"
+        }
+      ]
+    }
+  }
+}

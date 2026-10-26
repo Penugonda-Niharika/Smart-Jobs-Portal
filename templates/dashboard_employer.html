@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}Employer Dashboard — Smart Job Portal{% endblock %}
+
+{% block content %}
+<div class="dashboard-header-strip">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <div class="dashboard-role-badge badge-green">Employer Management Console</div>
+        <h1 style="font-size: 2rem; margin-bottom: 0.25rem;">{{ company_name }}</h1>
+        <p class="text-muted">Manage company hiring vacancies, review candidate applicants, and update hiring stages.</p>
+      </div>
+      <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+        <a href="{{ url_for('employer_profile') }}" class="btn btn-outline btn-sm">Edit Company Profile</a>
+        <a href="{{ url_for('create_job') }}" class="btn btn-primary btn-sm">+ Post a New Job</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" style="margin-bottom: 4rem;">
+  <!-- Metrics Strip -->
+  <div class="dash-metrics-grid">
+    <div class="metric-card">
+      <h4>Active Job Postings</h4>
+      <div class="metric-val">{{ jobs|length }}</div>
+    </div>
+    <div class="metric-card">
+      <h4>Total Applications</h4>
+      <div class="metric-val">{{ applications|length }}</div>
+    </div>
+    <div class="metric-card">
+      <h4>Shortlisted Candidates</h4>
+      <div class="metric-val" style="color: var(--emerald-600);">
+        {{ applications|selectattr('status', 'equalto', 'Shortlisted')|list|length }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Received Candidate Applications Table -->
+  <div style="margin-bottom: 3.5rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
+      <h2 style="font-size: 1.4rem;">Candidate Applications ({{ applications|length }})</h2>
+    </div>
+
+    {% if applications %}
+      <div class="table-wrapper" style="overflow-x: auto;">
+        <table class="data-table" style="min-width: 760px;">
+          <thead>
+            <tr>
+              <th style="width: 100px;">ID</th>
+              <th>Applicant Name & Email</th>
+              <th>Target Vacancy</th>
+              <th>Date</th>
+              <th>Message / Portfolio</th>
+              <th style="width: 220px;">Review Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for app in applications %}
+              <tr>
+                <td><code>{{ app.id }}</code></td>
+                <td>
+                  <strong>{{ app.applicant_name }}</strong>
+                  <div class="text-muted" style="font-size: 0.82rem;">{{ app.applicant_email }}</div>
+                </td>
+                <td>
+                  <a href="{{ url_for('job_detail', job_id=app.job_id) }}"><strong>{{ app.job_title }}</strong></a>
+                </td>
+                <td>{{ app.applied_date }}</td>
+                <td>
+                  {% if app.cover_note %}
+                    <p style="font-size: 0.85rem; margin-bottom: 0.25rem; color: var(--slate-700);">{{ app.cover_note[:90] }}...</p>
+                  {% endif %}
+                  {% if app.portfolio_url %}
+                    <a href="{{ app.portfolio_url }}" target="_blank" rel="noopener noreferrer" style="font-size: 0.82rem; font-weight: 600;">
+                      View Portfolio &nearr;
+                    </a>
+                  {% endif %}
+                </td>
+                <td>
+                  <form action="{{ url_for('update_application_status', app_id=app.id) }}" method="POST" style="display: flex; gap: 0.4rem; align-items: center;">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <select name="status" class="form-control" style="padding: 0.35rem 0.6rem; font-size: 0.82rem; width: 130px; height: 34px;">
+                      {% for st in ['Submitted', 'Under Review', 'Shortlisted', 'Rejected'] %}
+                        <option value="{{ st }}" {% if app.status == st %}selected{% endif %}>{{ st }}</option>
+                      {% endfor %}
+                    </select>
+                    <button type="submit" class="btn btn-secondary btn-sm" style="padding: 0.35rem 0.75rem; height: 34px;">Update</button>
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div style="background-color: var(--white); border: 1px solid var(--slate-200); border-radius: var(--radius-lg); padding: 2.5rem; text-align: center;">
+        <h4 style="margin-bottom: 0.5rem;">No candidates have applied yet</h4>
+        <p class="text-muted">Applications submitted through your job listings will appear in this table.</p>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- Employer Job Postings Table with CRUD Actions -->
+  <div>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
+      <h2 style="font-size: 1.4rem;">Company Vacancies ({{ jobs|length }})</h2>
+      <a href="{{ url_for('create_job') }}" class="btn btn-primary btn-sm">+ Post a Job</a>
+    </div>
+
+    {% if jobs %}
+      <div class="table-wrapper" style="overflow-x: auto;">
+        <table class="data-table" style="min-width: 760px;">
+          <thead>
+            <tr>
+              <th style="width: 100px;">Job ID</th>
+              <th>Role Title</th>
+              <th>Type</th>
+              <th>Arrangement</th>
+              <th>Compensation</th>
+              <th>Date</th>
+              <th style="text-align: right; width: 220px;">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for job in jobs %}
+              <tr>
+                <td><code>{{ job.id }}</code></td>
+                <td>
+                  <a href="{{ url_for('job_detail', job_id=job.id) }}"><strong>{{ job.title }}</strong></a>
+                </td>
+                <td><span class="badge badge-slate">{{ job.employment_type }}</span></td>
+                <td><span class="badge badge-blue">{{ job.work_arrangement }}</span></td>
+                <td>{{ job.salary_display }}</td>
+                <td>{{ job.posted_date }}</td>
+                <td style="text-align: right;">
+                  <div style="display: inline-flex; gap: 0.4rem; align-items: center;">
+                    <a href="{{ url_for('job_detail', job_id=job.id) }}" class="btn btn-outline btn-sm" title="View details">View</a>
+                    <a href="{{ url_for('edit_job', job_id=job.id) }}" class="btn btn-secondary btn-sm" title="Edit listing">Edit</a>
+                    <form action="{{ url_for('delete_job', job_id=job.id) }}" method="POST" onsubmit="return confirm('Permanently remove this job listing?');" style="display: inline;">
+                      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                      <button type="submit" class="btn btn-danger btn-sm" title="Delete listing">Delete</button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div style="background-color: var(--white); border: 1px solid var(--slate-200); border-radius: var(--radius-lg); padding: 2.5rem; text-align: center;">
+        <h4 style="margin-bottom: 0.5rem;">No job listings published yet</h4>
+        <p class="text-muted" style="margin-bottom: 1.25rem;">Publish your first Full-time or Part-time vacancy to attract applicants.</p>
+        <a href="{{ url_for('create_job') }}" class="btn btn-primary btn-sm">+ Post a Job</a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

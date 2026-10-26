@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv/
+
+# Environment Variables
+.env
+data/users.json
+data/applications.json
+data/*.corrupt-*
+work/
+
+# Uploads and temporary files
+uploads/
+*.pdf
+*.txt
+scratch/
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+
+!requirements.txt

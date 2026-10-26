@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}Skill-Based Recommendations — Smart Job Portal{% endblock %}
+
+{% block content %}
+<div class="page-banner">
+  <div class="container">
+    <h1 class="page-title">Smart Skill Recommendations</h1>
+    <p class="page-desc">Rank job vacancies according to your current technical competencies with transparent scoring.</p>
+  </div>
+</div>
+
+<div class="container" style="margin-bottom: 4rem;">
+  <!-- Skills Input Card -->
+  <div class="analyzer-card" style="margin-bottom: 2rem;">
+    <h3 style="margin-bottom: 0.5rem; font-size: 1.25rem;">Your Skill Profile</h3>
+    <p class="text-muted" style="font-size: 0.92rem; margin-bottom: 1.25rem;">
+      Enter the technical tools, frameworks, and domain skills you currently possess (separated by commas).
+    </p>
+
+    <form action="{{ url_for('recommendations') }}" method="GET" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+      <div style="flex: 1 1 350px;">
+        <input type="text" name="skills" class="form-control" value="{{ skills_input }}" placeholder="e.g. Python, SQL, Git, Docker, Machine Learning" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Recalculate Matches</button>
+    </form>
+
+    <div style="margin-top: 1rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+      <span style="font-size: 0.85rem; color: var(--slate-500);">Quick Skill Presets:</span>
+      <a href="{{ url_for('recommendations', skills='Python,Flask,SQL,Git,Docker') }}" class="tag-chip">Python Backend</a>
+      <a href="{{ url_for('recommendations', skills='Python,Machine Learning,scikit-learn,Pandas,NLP') }}" class="tag-chip">Data Science / ML</a>
+      <a href="{{ url_for('recommendations', skills='JavaScript,HTML5,CSS3,React,TypeScript') }}" class="tag-chip">Frontend Developer</a>
+      <a href="{{ url_for('recommendations', skills='SQL,Excel,Power BI,Tableau,Python') }}" class="tag-chip">Data Analyst</a>
+      <a href="{{ url_for('recommendations', skills='Linux,Docker,Kubernetes,AWS,CI/CD') }}" class="tag-chip">DevOps & Cloud</a>
+    </div>
+  </div>
+
+  <!-- Recommendations List -->
+  <div style="margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+    <h2>Matched Opportunities ({{ recommendations|length }})</h2>
+    <span class="text-muted" style="font-size: 0.88rem;">Scored using weighted required vs preferred overlap</span>
+  </div>
+
+  {% if recommendations %}
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 1.5rem;">
+      {% for rec in recommendations %}
+        <div class="job-card" style="border-top: 4px solid var(--blue-600);">
+          <div class="job-card-header">
+            <div class="job-role-info">
+              <h3><a href="{{ url_for('job_detail', job_id=rec.job.id) }}">{{ rec.job.title }}</a></h3>
+              <span class="company-name">{{ rec.job.company }}</span>
+            </div>
+            
+            <div style="text-align: right;">
+              <span class="badge {% if rec.score >= 70 %}badge-green{% elif rec.score >= 40 %}badge-amber{% else %}badge-slate{% endif %}" style="font-size: 0.85rem; padding: 0.35rem 0.65rem;">
+                {{ rec.score }}% Match
+              </span>
+            </div>
+          </div>
+
+          <div class="job-meta-chips">
+            <span class="meta-chip">{{ rec.job.location }}</span>
+            <span class="meta-chip">{{ rec.job.employment_type }}</span>
+            <span class="badge badge-blue">{{ rec.job.work_arrangement }}</span>
+          </div>
+
+          <!-- Explanation box -->
+          <div style="background-color: var(--slate-50); border-left: 3px solid var(--blue-500); padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); margin-bottom: 1rem; font-size: 0.85rem; color: var(--slate-700);">
+            {{ rec.explanation }}
+          </div>
+
+          <!-- Matched Skills -->
+          <div style="margin-bottom: 0.65rem;">
+            <span style="font-size: 0.78rem; font-weight: 700; color: var(--emerald-600); text-transform: uppercase; display: block; margin-bottom: 0.25rem;">
+              Matching Skills ({{ rec.matched_skills|length }})
+            </span>
+            <div style="display: flex; gap: 0.35rem; flex-wrap: wrap;">
+              {% for s in rec.matched_skills %}
+                <span style="background-color: var(--emerald-100); color: var(--emerald-600); font-size: 0.75rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: var(--radius-sm);">
+                  &check; {{ s }}
+                </span>
+              {% else %}
+                <span class="text-muted" style="font-size: 0.78rem;">None directly matched</span>
+              {% endfor %}
+            </div>
+          </div>
+
+          <!-- Missing Skills -->
+          {% if rec.missing_skills %}
+            <div style="margin-bottom: 1.25rem;">
+              <span style="font-size: 0.78rem; font-weight: 700; color: var(--slate-500); text-transform: uppercase; display: block; margin-bottom: 0.25rem;">
+                Skill Gaps to Acquire
+              </span>
+              <div style="display: flex; gap: 0.35rem; flex-wrap: wrap;">
+                {% for s in rec.missing_skills %}
+                  <span style="background-color: var(--slate-100); color: var(--slate-600); font-size: 0.75rem; padding: 0.15rem 0.5rem; border-radius: var(--radius-sm);">
+                    + {{ s }}
+                  </span>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+
+          <div class="job-card-footer">
+            <span class="salary-text">{{ rec.job.salary_display }}</span>
+            <div class="card-actions">
+              <a href="{{ url_for('resume_analyzer', job_id=rec.job.id) }}" class="btn btn-outline btn-sm">Analyze Resume</a>
+              <a href="{{ url_for('job_detail', job_id=rec.job.id) }}" class="btn btn-primary btn-sm">View Job</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div style="background-color: var(--white); border: 1px solid var(--slate-200); border-radius: var(--radius-lg); padding: 3rem; text-align: center;">
+      <h3>No recommendations found</h3>
+      <p class="text-muted">Enter some skills above (e.g. Python, SQL) to receive matched recommendations.</p>
+    </div>
+  {% endif %}
+
+  <!-- Heuristic Transparency Disclaimer -->
+  <div style="margin-top: 2.5rem; background-color: var(--slate-100); border: 1px solid var(--slate-200); border-radius: var(--radius-md); padding: 1rem; font-size: 0.8rem; color: var(--slate-600);">
+    <strong>Heuristic Notice:</strong> Recommendation match percentages are calculated locally by weighting direct overlaps between candidate skills and job requirements. These scores are heuristic estimates designed to assist exploration, not definitive hiring predictions.
+  </div>
+</div>
+{% endblock %}

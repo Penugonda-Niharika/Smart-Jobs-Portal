@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+
+{% block title %}Administrator Dashboard — Smart Job Portal{% endblock %}
+
+{% block content %}
+<div class="dashboard-header-strip">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <div class="dashboard-role-badge badge-rose">Admin Management Console</div>
+        <h1 style="font-size: 2rem; margin-bottom: 0.25rem;">Portal Administration & Moderation</h1>
+        <p class="text-muted">Manage system users, moderate catalog vacancies, and audit flagged suspicious listings.</p>
+      </div>
+      <a href="{{ url_for('logout') }}" class="btn btn-outline btn-sm">Sign Out Admin</a>
+    </div>
+  </div>
+</div>
+
+<div class="container" style="margin-bottom: 4rem;">
+  <!-- Metrics Cards -->
+  <div class="dash-metrics-grid">
+    <div class="metric-card">
+      <h4>Total Job Listings</h4>
+      <div class="metric-val">{{ metrics.total_jobs }}</div>
+      <div class="text-muted" style="font-size: 0.8rem; margin-top: 0.25rem;">{{ metrics.active_jobs }} active &bull; {{ metrics.hidden_jobs }} hidden</div>
+    </div>
+    <div class="metric-card">
+      <h4>Registered Users</h4>
+      <div class="metric-val">{{ metrics.total_users }}</div>
+      <div class="text-muted" style="font-size: 0.8rem; margin-top: 0.25rem;">{{ metrics.seekers_count }} candidates &bull; {{ metrics.employers_count }} employers</div>
+    </div>
+    <div class="metric-card">
+      <h4>Flagged Suspicious</h4>
+      <div class="metric-val" style="color: var(--rose-600);">{{ metrics.suspicious_count }}</div>
+      <div class="text-muted" style="font-size: 0.8rem; margin-top: 0.25rem;">Audited by risk engine</div>
+    </div>
+    <div class="metric-card">
+      <h4>Total Applications</h4>
+      <div class="metric-val">{{ metrics.total_applications }}</div>
+      <div class="text-muted" style="font-size: 0.8rem; margin-top: 0.25rem;">Across all postings</div>
+    </div>
+  </div>
+
+  <!-- User Management Table -->
+  <div style="margin-bottom: 3.5rem;">
+    <h2 style="font-size: 1.4rem; margin-bottom: 1.25rem;">Registered Users ({{ all_users|length }})</h2>
+    
+    <div class="table-wrapper" style="overflow-x: auto;">
+      <table class="data-table" style="min-width: 680px;">
+        <thead>
+          <tr>
+            <th style="width: 100px;">User ID</th>
+            <th>Name & Details</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Joined</th>
+            <th style="text-align: right; width: 120px;">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for u in all_users %}
+            <tr>
+              <td><code>{{ u.id }}</code></td>
+              <td>
+                <strong>{{ u.name }}</strong>
+                {% if u.company_name %}
+                  <div class="text-muted" style="font-size: 0.82rem;">{{ u.company_name }}</div>
+                {% elif u.headline %}
+                  <div class="text-muted" style="font-size: 0.82rem;">{{ u.headline }}</div>
+                {% endif %}
+              </td>
+              <td>{{ u.email }}</td>
+              <td>
+                <span class="badge {% if u.role == 'admin' %}badge-rose{% elif u.role == 'employer' %}badge-green{% else %}badge-blue{% endif %}">
+                  {{ u.role|capitalize }}
+                </span>
+              </td>
+              <td>{{ u.created_at or '2026-03-01' }}</td>
+              <td style="text-align: right;">
+                {% if u.role != 'admin' %}
+                  <form action="{{ url_for('admin_delete_user', user_id=u.id) }}" method="POST" onsubmit="return confirm('Permanently remove user {{ u.name }}?');" style="display: inline;">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <button type="submit" class="btn btn-danger btn-sm" style="padding: 0.3rem 0.6rem; font-size: 0.8rem;">Delete</button>
+                  </form>
+                {% else %}
+                  <span class="text-muted" style="font-size: 0.8rem;">Protected</span>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Flagged Suspicious Listings Section -->
+  <div style="margin-bottom: 3.5rem;">
+    <div style="margin-bottom: 1.25rem;">
+      <h2 style="font-size: 1.4rem;">Flagged Suspicious Listings ({{ suspicious_listings|length }})</h2>
+      <p class="text-muted" style="font-size: 0.9rem;">Automated detection checks for upfront fee demands, informal communication channels, and unrealistic salaries.</p>
+    </div>
+
+    {% if suspicious_listings %}
+      <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+        {% for item in suspicious_listings %}
+          <div class="analyzer-card" style="border-left: 4px solid var(--rose-600); margin-bottom: 0;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 0.75rem;">
+              <div>
+                <h3 style="font-size: 1.2rem;">
+                  <a href="{{ url_for('job_detail', job_id=item.job.id) }}">{{ item.job.title }}</a>
+                </h3>
+                <span class="text-muted" style="font-size: 0.88rem;">
+                  Company: <strong>{{ item.job.company }}</strong> &bull; Contact: <code>{{ item.job.contact_email }}</code>
+                </span>
+              </div>
+
+              <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+                <span class="badge {% if item.risk.risk_level == 'High' %}badge-rose{% else %}badge-amber{% endif %}">
+                  Risk: {{ item.risk.risk_level }} ({{ item.risk.risk_score }}/100)
+                </span>
+                
+                <form action="{{ url_for('admin_toggle_visibility', job_id=item.job.id) }}" method="POST" style="display: inline;">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                  {% if item.job.is_hidden %}
+                    <button type="submit" class="btn btn-secondary btn-sm">Restore</button>
+                  {% else %}
+                    <button type="submit" class="btn btn-danger btn-sm">Hide Listing</button>
+                  {% endif %}
+                </form>
+              </div>
+            </div>
+
+            <!-- Identified Warnings -->
+            <div style="background-color: #fff1f2; border-radius: var(--radius-md); padding: 0.85rem 1rem;">
+              <strong style="color: #9f1239; font-size: 0.85rem; display: block; margin-bottom: 0.35rem;">
+                Warning Signals Triggered:
+              </strong>
+              {% for w in item.risk.warnings %}
+                <div style="font-size: 0.82rem; color: #881337; margin-bottom: 0.25rem;">
+                  &bull; <strong>{{ w.signal }}:</strong> {{ w.detail }}
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div style="background-color: var(--white); border: 1px solid var(--slate-200); border-radius: var(--radius-lg); padding: 2rem; text-align: center;">
+        <p class="text-muted">No high or medium-risk listings detected in the current catalog.</p>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- All Platform Listings Moderation Table -->
+  <div>
+    <h2 style="font-size: 1.4rem; margin-bottom: 1.25rem;">Job Catalog Moderation ({{ all_jobs|length }})</h2>
+    
+    <div class="table-wrapper" style="overflow-x: auto;">
+      <table class="data-table" style="min-width: 760px;">
+        <thead>
+          <tr>
+            <th style="width: 100px;">ID</th>
+            <th>Title & Company</th>
+            <th>Type</th>
+            <th>Arrangement</th>
+            <th>Status</th>
+            <th style="text-align: right; width: 180px;">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for job in all_jobs %}
+            <tr>
+              <td><code>{{ job.id }}</code></td>
+              <td>
+                <strong><a href="{{ url_for('job_detail', job_id=job.id) }}">{{ job.title }}</a></strong>
+                <div class="text-muted" style="font-size: 0.82rem;">{{ job.company }}</div>
+              </td>
+              <td><span class="badge badge-slate">{{ job.employment_type }}</span></td>
+              <td><span class="badge badge-blue">{{ job.work_arrangement }}</span></td>
+              <td>
+                {% if job.is_hidden %}
+                  <span class="badge badge-rose">Hidden</span>
+                {% else %}
+                  <span class="badge badge-green">Visible</span>
+                {% endif %}
+              </td>
+              <td style="text-align: right;">
+                <div style="display: inline-flex; gap: 0.4rem; align-items: center;">
+                  <form action="{{ url_for('admin_toggle_visibility', job_id=job.id) }}" method="POST" style="display: inline;">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    {% if job.is_hidden %}
+                      <button type="submit" class="btn btn-secondary btn-sm" style="padding: 0.3rem 0.6rem; font-size: 0.8rem;">Restore</button>
+                    {% else %}
+                      <button type="submit" class="btn btn-outline btn-sm" style="padding: 0.3rem 0.6rem; font-size: 0.8rem;">Hide</button>
+                    {% endif %}
+                  </form>
+                  <form action="{{ url_for('delete_job', job_id=job.id) }}" method="POST" onsubmit="return confirm('Permanently delete {{ job.title }}?');" style="display: inline;">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <button type="submit" class="btn btn-danger btn-sm" style="padding: 0.3rem 0.6rem; font-size: 0.8rem;">Delete</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Log In — Smart Job Portal{% endblock %}
+
+{% block content %}
+<div class="page-banner">
+  <div class="container text-center">
+    <h1 class="page-title">Sign In to Your Account</h1>
+    <p class="page-desc">Access your personalized dashboard, track applications, or manage candidate job postings.</p>
+  </div>
+</div>
+
+<div class="container" style="max-width: 480px; margin-bottom: 4rem;">
+  <div class="analyzer-card" style="border-top: 4px solid var(--blue-600);">
+    <form action="{{ url_for('login') }}" method="POST">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+      {% if request.args.get('next') %}
+        <input type="hidden" name="next" value="{{ request.args.get('next') }}"/>
+      {% endif %}
+
+      <div class="form-group">
+        <label class="form-label" for="loginEmail">Email Address *</label>
+        <input type="email" id="loginEmail" name="email" class="form-control" value="{{ email or '' }}" placeholder="name@example.com" required autofocus>
+      </div>
+
+      <div class="form-group">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+          <label class="form-label" for="loginPass" style="margin-bottom: 0;">Password *</label>
+        </div>
+        <input type="password" id="loginPass" name="password" class="form-control" placeholder="••••••••" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-top: 1.5rem;">
+        Sign In
+      </button>
+
+      <div style="text-align: center; margin-top: 1.5rem; font-size: 0.92rem; color: var(--slate-600);">
+        Don't have an account? <a href="{{ url_for('signup') }}" style="font-weight: 600; color: var(--blue-600);">Sign Up here</a>
+      </div>
+    </form>
+
+  </div>
+</div>
+{% endblock %}

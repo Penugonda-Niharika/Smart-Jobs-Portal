@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block title %}Job Seeker Dashboard — Smart Job Portal{% endblock %}
+
+{% block content %}
+<div class="dashboard-header-strip">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <div class="dashboard-role-badge badge-blue">Candidate Dashboard</div>
+        <h1 style="font-size: 2rem; margin-bottom: 0.25rem;">Welcome back, {{ user.name if user else user_name }}</h1>
+        <p class="text-muted">{{ user.headline if user and user.headline else 'Candidate Profile' }} &bull; {{ user_email }}</p>
+      </div>
+      <div style="display: flex; gap: 0.75rem;">
+        <a href="{{ url_for('profile') }}" class="btn btn-outline btn-sm">Edit Profile</a>
+        <a href="{{ url_for('jobs_list') }}" class="btn btn-primary btn-sm">Find Jobs</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" style="margin-bottom: 4rem;">
+  <!-- Metrics Cards -->
+  <div class="dash-metrics-grid">
+    <div class="metric-card">
+      <h4>Submitted Applications</h4>
+      <div class="metric-val">{{ applications|length }}</div>
+    </div>
+    <div class="metric-card">
+      <h4>Saved Bookmarks</h4>
+      <div class="metric-val">{{ saved_jobs|length }}</div>
+    </div>
+    <div class="metric-card">
+      <h4>Profile Skills</h4>
+      <div class="metric-val">{{ user_skills|length }}</div>
+    </div>
+  </div>
+
+  <!-- Applications Table -->
+  <div style="margin-bottom: 3rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
+      <h2 style="font-size: 1.4rem;">Your Job Applications</h2>
+      <a href="{{ url_for('jobs_list') }}" class="btn btn-secondary btn-sm">+ Apply for More Positions</a>
+    </div>
+
+    {% if applications %}
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Application ID</th>
+              <th>Role & Company</th>
+              <th>Date Submitted</th>
+              <th>Current Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for app in applications %}
+              <tr>
+                <td><code>{{ app.id }}</code></td>
+                <td>
+                  <strong><a href="{{ url_for('job_detail', job_id=app.job_id) }}">{{ app.job_title }}</a></strong>
+                  <div class="text-muted" style="font-size: 0.82rem;">{{ app.company }}</div>
+                </td>
+                <td>{{ app.applied_date }}</td>
+                <td>
+                  <span class="status-pill status-{{ app.status.replace(' ', '') }}">
+                    {{ app.status }}
+                  </span>
+                </td>
+                <td>
+                  <a href="{{ url_for('job_detail', job_id=app.job_id) }}" class="btn btn-outline btn-sm">View Job</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div style="background-color: var(--white); border: 1px solid var(--slate-200); border-radius: var(--radius-lg); padding: 2.5rem; text-align: center;">
+        <h4 style="margin-bottom: 0.5rem;">No applications submitted yet</h4>
+        <p class="text-muted" style="margin-bottom: 1.25rem;">Explore vacancies across tech, marketing, data, and finance to submit your first application.</p>
+        <a href="{{ url_for('jobs_list') }}" class="btn btn-primary btn-sm">Browse Active Jobs</a>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- Saved Jobs Section -->
+  <div style="margin-bottom: 3rem;">
+    <h2 style="font-size: 1.4rem; margin-bottom: 1.25rem;">Bookmarked Jobs ({{ saved_jobs|length }})</h2>
+
+    {% if saved_jobs %}
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem;">
+        {% for job in saved_jobs %}
+          <div class="job-card">
+            <div class="job-card-header">
+              <div class="job-role-info">
+                <h4><a href="{{ url_for('job_detail', job_id=job.id) }}">{{ job.title }}</a></h4>
+                <span class="company-name">{{ job.company }}</span>
+              </div>
+              <button class="save-job-btn save-btn active" data-job-id="{{ job.id }}" aria-label="Unsave job">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+              </button>
+            </div>
+            <div class="job-meta-chips">
+              <span class="meta-chip">{{ job.location }}</span>
+              <span class="badge badge-blue">{{ job.employment_type }}</span>
+            </div>
+            <div class="job-card-footer">
+              <span class="salary-text">{{ job.salary_display }}</span>
+              <a href="{{ url_for('job_detail', job_id=job.id) }}" class="btn btn-outline btn-sm">View Details</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div style="background-color: var(--white); border: 1px solid var(--slate-200); border-radius: var(--radius-lg); padding: 2rem; text-align: center;">
+        <p class="text-muted">You haven't bookmarked any listings yet. Click the bookmark icon on any job card to save it here.</p>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- Smart Career Tools Section -->
+  <div style="background-color: var(--white); border: 1px solid var(--slate-200); border-radius: var(--radius-lg); padding: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
+    <div>
+      <h3 style="font-size: 1.2rem; margin-bottom: 0.25rem;">Optimize Your Resume or Prepare for Interviews</h3>
+      <p class="text-muted" style="font-size: 0.92rem;">Use our built-in resume analyzer and interview question bank.</p>
+    </div>
+    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+      <a href="{{ url_for('resume_analyzer') }}" class="btn btn-primary">Run Resume Analyzer</a>
+      <a href="{{ url_for('interview_prep') }}" class="btn btn-outline">Practice Interview Questions</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

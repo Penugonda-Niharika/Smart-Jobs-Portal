@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Job Listing — Smart Job Portal{% endblock %}
+
+{% block content %}
+<div class="page-banner">
+  <div class="container">
+    <h1 class="page-title">Edit Job Listing</h1>
+    <p class="page-desc">Update vacancy details, requirements, compensation, and official application links.</p>
+  </div>
+</div>
+
+<div class="container" style="max-width: 840px; margin-bottom: 4rem;">
+  <div class="analyzer-card">
+    <form action="{{ url_for('edit_job', job_id=job.id) }}" method="POST" data-salary-validation>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+      <div class="form-group">
+        <label class="form-label" for="jobTitle">Job Title *</label>
+        <input type="text" id="jobTitle" name="title" class="form-control" value="{{ job.title }}" required>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div class="form-group">
+          <label class="form-label" for="companyName">Hiring Company *</label>
+          <input type="text" id="companyName" name="company" class="form-control" value="{{ job.company }}" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="jobLocation">Location *</label>
+          <input type="text" id="jobLocation" name="location" class="form-control" value="{{ job.location }}" required>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+        <div class="form-group">
+          <label class="form-label">Employment Type *</label>
+          <select name="employment_type" class="form-control" required>
+            <option value="Full-time" {% if job.employment_type == 'Full-time' %}selected{% endif %}>Full-time</option>
+            <option value="Part-time" {% if job.employment_type == 'Part-time' %}selected{% endif %}>Part-time</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Work Arrangement *</label>
+          <select name="work_arrangement" class="form-control" required>
+            <option value="Remote" {% if job.work_arrangement == 'Remote' %}selected{% endif %}>Remote</option>
+            <option value="Hybrid" {% if job.work_arrangement == 'Hybrid' %}selected{% endif %}>Hybrid</option>
+            <option value="On-site" {% if job.work_arrangement == 'On-site' %}selected{% endif %}>On-site</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Experience Level *</label>
+          <select name="experience_level" class="form-control" required>
+            <option value="Entry-level" {% if job.experience_level == 'Entry-level' %}selected{% endif %}>Entry-level</option>
+            <option value="Mid-level" {% if job.experience_level == 'Mid-level' %}selected{% endif %}>Mid-level</option>
+            <option value="Senior-level" {% if job.experience_level == 'Senior-level' %}selected{% endif %}>Senior-level</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+        <div class="form-group">
+          <label class="form-label" for="minSalary">Min Salary (Annual ₹)</label>
+          <input type="number" id="minSalary" name="salary_min" class="form-control" value="{{ job.salary_min or '' }}" step="50000">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="maxSalary">Max Salary (Annual ₹)</label>
+          <input type="number" id="maxSalary" name="salary_max" class="form-control" value="{{ job.salary_max or '' }}" step="50000">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="salaryDisplay">Display Format</label>
+          <input type="text" id="salaryDisplay" name="salary_display" class="form-control" value="{{ job.salary_display }}">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="appUrl">Direct Official Link / LinkedIn Job URL (Optional)</label>
+        <input type="url" id="appUrl" name="application_url" class="form-control" value="{{ job.application_url or '' }}" placeholder="https://www.linkedin.com/jobs/view/...">
+        <div class="form-hint">If provided, applicants will see a direct button linking to your official posting.</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="requiredSkills">Required Skills (Comma-separated) *</label>
+        <input type="text" id="requiredSkills" name="required_skills" class="form-control" value="{{ job.required_skills|join(', ') }}" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="jobDescription">Role Overview & Objective *</label>
+        <textarea id="jobDescription" name="description" class="form-control" rows="4" required>{{ job.description }}</textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="jobResp">Key Responsibilities (One per line)</label>
+        <textarea id="jobResp" name="responsibilities" class="form-control" rows="4">{{ job.responsibilities|join('\n') }}</textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="contactEmail">Employer Contact Email</label>
+        <input type="email" id="contactEmail" name="contact_email" class="form-control" value="{{ job.contact_email }}">
+      </div>
+
+      <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+        <button type="submit" class="btn btn-primary btn-lg">Update Job Listing</button>
+        <a href="{{ url_for('job_detail', job_id=job.id) }}" class="btn btn-secondary btn-lg">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Page Not Found (404) — Smart Job Portal{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 650px; text-align: center; padding: 5rem 1.5rem;">
+  <div style="font-size: 4rem; font-weight: 800; color: var(--navy-850); line-height: 1; margin-bottom: 1rem;">
+    404
+  </div>
+  <h1 style="font-size: 2rem; margin-bottom: 0.75rem;">Page or Job Not Found</h1>
+  <p class="text-muted" style="margin-bottom: 2rem; font-size: 1.05rem;">
+    The requested vacancy or resource could not be located. It may have expired or been removed from the current runtime session.
+  </p>
+  <div style="display: flex; justify-content: center; gap: 1rem;">
+    <a href="{{ url_for('jobs_list') }}" class="btn btn-primary">Browse Active Jobs</a>
+    <a href="{{ url_for('index') }}" class="btn btn-outline">Return to Home</a>
+  </div>
+</div>
+{% endblock %}

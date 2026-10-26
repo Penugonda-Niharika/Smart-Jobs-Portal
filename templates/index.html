@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+
+{% block title %}Smart Job Portal — Intelligent Career Discovery & Hiring{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container hero-content">
+    <div class="hero-pill">
+      <span>AI-Powered Matching &bull; Skill-Gap Roadmaps &bull; Risk Detection</span>
+    </div>
+    
+    <h1 class="hero-title">
+      Find Your Ideal Career With <span>Smart Intelligence</span>
+    </h1>
+    
+    <p class="hero-subtitle">
+      Explore verified Full-time and Part-time opportunities, analyze your resume against real role descriptions with text similarity, and follow guided career roadmaps.
+    </p>
+
+    <!-- Hero Search Bar -->
+    <div class="hero-search-card">
+      <form action="{{ url_for('jobs_list') }}" method="GET" class="search-form-row">
+        <div class="search-field">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="text" name="q" placeholder="Job title, skills (e.g. Python, React), or company" aria-label="Search jobs by keyword">
+        </div>
+
+        <div class="search-field" style="max-width: 220px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <input type="text" name="location" placeholder="City or Country" aria-label="Location">
+        </div>
+
+        <div class="search-field" style="max-width: 180px;">
+          <select name="employment_type" aria-label="Employment type">
+            <option value="">All Types</option>
+            <option value="Full-time">Full-time</option>
+            <option value="Part-time">Part-time</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg">
+          Search Jobs
+        </button>
+      </form>
+    </div>
+
+    <!-- Quick Skill Tags -->
+    <div class="hero-quick-tags">
+      <span>Popular searches:</span>
+      <a href="{{ url_for('jobs_list', q='Python') }}" class="tag-chip">Python</a>
+      <a href="{{ url_for('jobs_list', q='Machine Learning') }}" class="tag-chip">Machine Learning</a>
+      <a href="{{ url_for('jobs_list', q='React') }}" class="tag-chip">React / Frontend</a>
+      <a href="{{ url_for('jobs_list', employment_type='Full-time') }}" class="tag-chip">Full-time Roles</a>
+      <a href="{{ url_for('jobs_list', employment_type='Part-time') }}" class="tag-chip">Part-time Roles</a>
+      <a href="{{ url_for('jobs_list', work_arrangement='Remote') }}" class="tag-chip">100% Remote</a>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Strip -->
+<section class="stats-strip">
+  <div class="container stats-grid">
+    <div class="stat-item">
+      <h3>{{ total_jobs }}+</h3>
+      <p>Curated Job Listings</p>
+    </div>
+    <div class="stat-item">
+      <h3>{{ full_time_count }} / {{ part_time_count }}</h3>
+      <p>Full-time &amp; Part-time Roles</p>
+    </div>
+    <div class="stat-item">
+      <h3>{{ remote_jobs_count }}+</h3>
+      <p>Remote Opportunities</p>
+    </div>
+    <div class="stat-item">
+      <h3>100%</h3>
+      <p>Secure &amp; Privacy-Focused</p>
+    </div>
+  </div>
+</section>
+
+<!-- Smart Features Spotlight -->
+<section class="features-section">
+  <div class="container">
+    <div class="section-head">
+      <h2>Intelligent Features for Modern Job Seekers</h2>
+      <p>Local algorithmic tools designed to align candidate competencies with verified industry vacancies.</p>
+    </div>
+
+    <div class="feature-cards-grid">
+      <!-- Feature 1 -->
+      <div class="feature-box">
+        <div class="feature-icon-wrapper">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <h3>Resume Analyzer</h3>
+        <p>Upload your PDF or TXT resume to compare it with target jobs and highlight matching keywords and missing skills.</p>
+        <a href="{{ url_for('resume_analyzer') }}" class="btn btn-outline btn-sm">Try Resume Matcher &rarr;</a>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="feature-box">
+        <div class="feature-icon-wrapper">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <h3>Skill-Based Recommendations</h3>
+        <p>Rank and discover positions tailored to your existing technical competencies with clear, transparent match scores.</p>
+        <a href="{{ url_for('recommendations') }}" class="btn btn-outline btn-sm">Explore Recommendations &rarr;</a>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="feature-box">
+        <div class="feature-icon-wrapper">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+        </div>
+        <h3>Career Gap Roadmap</h3>
+        <p>Identify missing skills for specialized industry roles and follow structured, phased learning plans with actionable study milestones.</p>
+        <a href="{{ url_for('career_roadmap') }}" class="btn btn-outline btn-sm">View Roadmaps &rarr;</a>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="feature-box">
+        <div class="feature-icon-wrapper">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3>Role Interview Preparation</h3>
+        <p>Study domain-specific technical questions, behavioral frameworks, and preparation tips across software, data, and business domains.</p>
+        <a href="{{ url_for('interview_prep') }}" class="btn btn-outline btn-sm">Practice Questions &rarr;</a>
+      </div>
+
+      <!-- Feature 5 -->
+      <div class="feature-box">
+        <div class="feature-icon-wrapper">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Suspicious Job Detection</h3>
+        <p>Automated heuristics check listings for recruitment scam signals such as upfront fees, unrealistic pay, and informal communication channels.</p>
+        <a href="{{ url_for('jobs_list') }}" class="btn btn-outline btn-sm">Browse Verified Jobs &rarr;</a>
+      </div>
+
+      <!-- Feature 6 -->
+      <div class="feature-box">
+        <div class="feature-icon-wrapper">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <h3>Candidate &amp; Recruiter Portals</h3>
+        <p>Dedicated management consoles for Job Seekers (profiles, applications, bookmarks) and Employers (publishing &amp; candidate review).</p>
+        <a href="{{ url_for('signup') }}" class="btn btn-outline btn-sm">Get Started &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Job Opportunities -->
+<section style="background-color: var(--white); padding: 4.5rem 0; border-top: 1px solid var(--slate-200); border-bottom: 1px solid var(--slate-200);">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h2 style="font-size: 2rem; margin-bottom: 0.35rem;">Featured Opportunities</h2>
+        <p class="text-muted">Hand-picked vacancies across Full-time and Part-time arrangements.</p>
+      </div>
+      <a href="{{ url_for('jobs_list') }}" class="btn btn-secondary">Explore All {{ total_jobs }} Jobs &rarr;</a>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 1.5rem;">
+      {% for job in featured_jobs %}
+        <div class="job-card" onclick="window.location.href='{{ url_for('job_detail', job_id=job.id) }}'" style="cursor: pointer;">
+          <div class="job-card-header">
+            <div class="job-role-info">
+              <h3><a href="{{ url_for('job_detail', job_id=job.id) }}" onclick="event.stopPropagation();">{{ job.title }}</a></h3>
+              <span class="company-name">{{ job.company }}</span>
+            </div>
+            <button class="save-job-btn save-btn" data-job-id="{{ job.id }}" aria-label="Save this job" onclick="event.stopPropagation();">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+            </button>
+          </div>
+
+          <div class="job-meta-chips">
+            <span class="meta-chip">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              {{ job.location }}
+            </span>
+            <span class="badge badge-slate">{{ job.employment_type }}</span>
+            <span class="badge badge-blue">{{ job.work_arrangement }}</span>
+            {% if job.application_url %}
+              <span class="badge badge-green">Official Link &nearr;</span>
+            {% endif %}
+          </div>
+
+          <p class="job-snippet">{{ job.description[:130] }}...</p>
+
+          <div class="job-card-skills">
+            {% for skill in job.required_skills[:4] %}
+              <span class="skill-tag">{{ skill }}</span>
+            {% endfor %}
+            {% if job.required_skills|length > 4 %}
+              <span class="text-muted" style="font-size: 0.75rem;">+{{ job.required_skills|length - 4 }} more</span>
+            {% endif %}
+          </div>
+
+          <div class="job-card-footer" onclick="event.stopPropagation();">
+            <span class="salary-text">{{ job.salary_display }}</span>
+            <a href="{{ url_for('job_detail', job_id=job.id) }}" class="btn btn-outline btn-sm">View Details</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

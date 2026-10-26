@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}Post a Job Listing — Smart Job Portal{% endblock %}
+
+{% block content %}
+<div class="page-banner">
+  <div class="container">
+    <h1 class="page-title">Post a New Job Listing</h1>
+    <p class="page-desc">Publish an active Full-time or Part-time vacancy to reach qualified professionals.</p>
+  </div>
+</div>
+
+<div class="container" style="max-width: 840px; margin-bottom: 4rem;">
+  <div class="analyzer-card">
+    <form action="{{ url_for('create_job') }}" method="POST" data-salary-validation>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+      <div class="form-group">
+        <label class="form-label" for="jobTitle">Job Title *</label>
+        <input type="text" id="jobTitle" name="title" class="form-control" placeholder="e.g. Senior Backend Python Engineer" required>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div class="form-group">
+          <label class="form-label" for="companyName">Hiring Company *</label>
+          <input type="text" id="companyName" name="company" class="form-control" value="{{ session.get('company_name', 'Apex Cloud Systems') }}" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="jobLocation">Location *</label>
+          <input type="text" id="jobLocation" name="location" class="form-control" placeholder="e.g. Bengaluru, India or Global" required>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+        <div class="form-group">
+          <label class="form-label">Employment Type *</label>
+          <select name="employment_type" class="form-control" required>
+            <option value="Full-time" selected>Full-time</option>
+            <option value="Part-time">Part-time</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Work Arrangement *</label>
+          <select name="work_arrangement" class="form-control" required>
+            <option value="Remote">Remote</option>
+            <option value="Hybrid" selected>Hybrid</option>
+            <option value="On-site">On-site</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Experience Level *</label>
+          <select name="experience_level" class="form-control" required>
+            <option value="Entry-level">Entry-level</option>
+            <option value="Mid-level" selected>Mid-level</option>
+            <option value="Senior-level">Senior-level</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+        <div class="form-group">
+          <label class="form-label" for="minSalary">Min Salary (Annual ₹)</label>
+          <input type="number" id="minSalary" name="salary_min" class="form-control" placeholder="e.g. 800000" step="50000">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="maxSalary">Max Salary (Annual ₹)</label>
+          <input type="number" id="maxSalary" name="salary_max" class="form-control" placeholder="e.g. 1400000" step="50000">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="salaryDisplay">Display Format</label>
+          <input type="text" id="salaryDisplay" name="salary_display" class="form-control" placeholder="e.g. ₹8L - ₹14L / year">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="appUrl">Direct Official Link / LinkedIn URL (Optional)</label>
+        <input type="url" id="appUrl" name="application_url" class="form-control" placeholder="https://www.linkedin.com/jobs/view/...">
+        <div class="form-hint">If provided, applicants will see a direct button linking to your official posting.</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="requiredSkills">Required Skills (Comma-separated) *</label>
+        <input type="text" id="requiredSkills" name="required_skills" class="form-control" placeholder="e.g. Python, Flask, Docker, PostgreSQL, REST APIs" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="jobDescription">Role Overview & Objective *</label>
+        <textarea id="jobDescription" name="description" class="form-control" rows="4" placeholder="Provide a detailed summary of the role, product domain, and what the team accomplishes..." required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="jobResp">Key Responsibilities (One per line)</label>
+        <textarea id="jobResp" name="responsibilities" class="form-control" rows="4" placeholder="Architect scalable microservices&#10;Coordinate with frontend React developers&#10;Maintain unit tests with PyTest"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="contactEmail">Employer Contact Email</label>
+        <input type="email" id="contactEmail" name="contact_email" class="form-control" value="{{ session.get('user_email', 'careers@company.example.com') }}">
+      </div>
+
+      <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+        <button type="submit" class="btn btn-primary btn-lg">Publish Job Listing</button>
+        <a href="{{ url_for('dashboard_employer') }}" class="btn btn-secondary btn-lg">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

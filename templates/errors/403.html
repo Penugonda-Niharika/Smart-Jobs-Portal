@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Access Denied (403) — Smart Job Portal{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 650px; text-align: center; padding: 5rem 1.5rem;">
+  <div style="font-size: 4rem; font-weight: 800; color: var(--rose-600); line-height: 1; margin-bottom: 1rem;">
+    403
+  </div>
+  <h1 style="font-size: 2rem; margin-bottom: 0.75rem;">Access Forbidden</h1>
+  <p class="text-muted" style="margin-bottom: 2rem; font-size: 1.05rem;">
+    You do not possess the required permissions or role to access this dashboard resource.
+  </p>
+  <div style="display: flex; justify-content: center; gap: 1rem;">
+    <a href="{{ url_for('login') }}" class="btn btn-primary">Log In with Authorized Account</a>
+    <a href="{{ url_for('index') }}" class="btn btn-outline">Return to Home</a>
+  </div>
+</div>
+{% endblock %}

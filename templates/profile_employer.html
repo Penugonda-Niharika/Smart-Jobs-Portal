@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Company Profile — Smart Job Portal{% endblock %}
+
+{% block content %}
+<div class="dashboard-header-strip">
+  <div class="container">
+    <div class="dashboard-role-badge badge-green">Employer Company Profile</div>
+    <h1 style="font-size: 2rem; margin-bottom: 0.25rem;">Company Profile Settings</h1>
+    <p class="text-muted">Manage your corporate identity, industry categorization, and hiring contact info.</p>
+  </div>
+</div>
+
+<div class="container" style="max-width: 860px; margin-bottom: 4rem;">
+  <div class="analyzer-card">
+    <form action="{{ url_for('employer_profile') }}" method="POST">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+        <div class="form-group">
+          <label class="form-label" for="compName">Company Name *</label>
+          <input type="text" id="compName" name="company_name" class="form-control" value="{{ user.company_name or '' }}" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="compIndustry">Industry *</label>
+          <input type="text" id="compIndustry" name="company_industry" class="form-control" value="{{ user.company_industry or '' }}" placeholder="e.g. Enterprise SaaS & Cloud Computing" required>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+        <div class="form-group">
+          <label class="form-label" for="contactName">Primary Recruiter / Contact Name *</label>
+          <input type="text" id="contactName" name="name" class="form-control" value="{{ user.name }}" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="contactPhone">Contact Phone</label>
+          <input type="tel" id="contactPhone" name="phone" class="form-control" value="{{ user.phone or '' }}" placeholder="+91 80 4123 9000">
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+        <div class="form-group">
+          <label class="form-label" for="compEmail">Account Email (Read-only)</label>
+          <input type="email" id="compEmail" class="form-control" value="{{ user.email }}" disabled style="background-color: var(--slate-100); color: var(--slate-600);">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="compWebsite">Official Website URL</label>
+          <input type="url" id="compWebsite" name="company_website" class="form-control" value="{{ user.company_website or '' }}" placeholder="https://example.com">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="compOverview">Company Overview & Culture</label>
+        <textarea id="compOverview" name="company_overview" class="form-control" rows="4" placeholder="Briefly describe what your organization builds, mission, and work environment...">{{ user.company_overview or '' }}</textarea>
+      </div>
+
+      <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+        <button type="submit" class="btn btn-primary">Save Company Profile</button>
+        <a href="{{ url_for('dashboard_employer') }}" class="btn btn-secondary">Back to Dashboard</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

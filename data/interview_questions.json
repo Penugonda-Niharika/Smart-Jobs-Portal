@@ -1,0 +1,245 @@
+{
+  "roles": {
+    "python": {
+      "role_name": "Python Developer",
+      "tips": [
+        "Be ready to explain Python memory management, GIL, mutability, and generators.",
+        "Practice coding problems focusing on dictionaries, sets, and list comprehensions.",
+        "Demonstrate practical knowledge of REST API principles and database ORM patterns."
+      ],
+      "questions": [
+        {
+          "id": "py-01",
+          "category": "Technical",
+          "question": "What is the difference between list and tuple in Python, and when would you choose one over the other?",
+          "answer_framework": "Explain that lists are mutable sequences defined with square brackets, whereas tuples are immutable sequences defined with parentheses. Tuples have slight memory and execution time optimizations, can be used as dictionary keys (if containing only hashable elements), and convey intent that data should remain constant. Lists are preferred when elements need frequent additions, deletions, or in-place sorting.",
+          "key_points": ["Mutability vs Immutability", "Memory overhead and performance", "Hashability as dictionary keys", "Intent of use"]
+        },
+        {
+          "id": "py-02",
+          "category": "Technical",
+          "question": "How do Python generators work, and what is the difference between yield and return?",
+          "answer_framework": "A generator is a function that produces a sequence of values lazily on demand using the 'yield' keyword instead of 'return'. When 'yield' is executed, the function's execution state, local variables, and instruction pointer are paused and preserved until next() is invoked. This provides massive memory efficiency when dealing with large datasets or infinite streams, as values are not stored all at once in RAM.",
+          "key_points": ["Lazy evaluation (iterators)", "Memory conservation", "State preservation between calls", "yield vs return execution flow"]
+        },
+        {
+          "id": "py-03",
+          "category": "Technical",
+          "question": "Explain Python's Global Interpreter Lock (GIL) and its implications for multi-threading vs multi-processing.",
+          "answer_framework": "The GIL is a mutex lock used by CPython to ensure only one native thread executes Python bytecode at any given moment, simplifying thread-safe memory management. For CPU-bound tasks, multi-threading in Python does not provide true parallelism across multiple CPU cores; the 'multiprocessing' module or external C-extensions should be used. However, for I/O-bound tasks (network requests, disk reads), multi-threading or asyncio is highly effective as threads release the lock during waiting states.",
+          "key_points": ["CPython mutex mechanism", "CPU-bound vs I/O-bound workloads", "multiprocessing vs threading vs asyncio", "Thread-safe reference counting"]
+        },
+        {
+          "id": "py-04",
+          "category": "Behavioral",
+          "question": "Describe a difficult bug you encountered in a Python web service and how you diagnosed and resolved it.",
+          "answer_framework": "Use the STAR method (Situation, Task, Action, Result). State the context (e.g., unexpected 500 error or memory leak under concurrent load). Describe your diagnostic process: reproducing the error locally, inspecting application logs, using pdb / logging, identifying root cause (e.g., unclosed database connection pool or mutable default argument), testing the fix, and adding regression tests.",
+          "key_points": ["Systematic debugging approach", "Use of logs and profiling tools", "Testing fix under load", "Preventative measures"]
+        }
+      ]
+    },
+    "java": {
+      "role_name": "Java Developer",
+      "tips": [
+        "Focus on JVM architecture, garbage collection algorithms, and memory areas (Heap vs Stack).",
+        "Be well-versed with Java concurrency, thread pools, and Spring Boot annotations.",
+        "Demonstrate SOLID object-oriented design principles with clear examples."
+      ],
+      "questions": [
+        {
+          "id": "jav-01",
+          "category": "Technical",
+          "question": "Explain the difference between Heap and Stack memory in Java.",
+          "answer_framework": "Stack memory is used for static memory allocation and execution of a thread; it contains primitive values and references to objects in Heap, operating in LIFO order per thread with fast access. Heap memory is used for dynamic memory allocation of all Objects and JRE classes across the entire application, managed globally by the Garbage Collector. StackOverflowError occurs when stack is exhausted (e.g., infinite recursion), whereas OutOfMemoryError occurs when heap memory is full.",
+          "key_points": ["Thread-private Stack vs Shared Heap", "Primitives & References vs Actual Objects", "Garbage Collection role in Heap", "StackOverflowError vs OutOfMemoryError"]
+        },
+        {
+          "id": "jav-02",
+          "category": "Technical",
+          "question": "How does Spring Boot dependency injection (DI) work, and what are the primary bean scopes?",
+          "answer_framework": "Dependency Injection is an implementation of Inversion of Control (IoC), where the Spring IoC Container initializes, configures, and injects object dependencies rather than objects instantiating them manually. Injections can be constructor-based (recommended for immutability and testability), setter-based, or field-based (@Autowired). Standard bean scopes are Singleton (default, single instance per IoC container), Prototype (new instance every request), Request, Session, and Application.",
+          "key_points": ["Inversion of Control (IoC)", "Constructor injection benefits", "Singleton vs Prototype scope", "@Autowired and @Component"]
+        },
+        {
+          "id": "jav-03",
+          "category": "Behavioral",
+          "question": "How do you ensure code quality and maintainability in a team building enterprise Java services?",
+          "answer_framework": "Discuss following clean code conventions, applying SOLID design principles, writing comprehensive JUnit 5 and Mockito unit/integration tests with high branch coverage, utilizing static analysis tools like SonarQube, and conducting constructive peer pull request reviews.",
+          "key_points": ["SOLID principles", "Automated testing (JUnit, Mockito)", "Static analysis (SonarQube)", "Code reviews"]
+        }
+      ]
+    },
+    "frontend": {
+      "role_name": "Frontend Developer",
+      "tips": [
+        "Understand the browser rendering pipeline: DOM, CSSOM, Render Tree, Layout, Paint, and Composite.",
+        "Know ES6+ features, modern CSS (Flexbox/Grid), and state management deeply.",
+        "Emphasize accessibility (a11y), responsive design, and core web vitals."
+      ],
+      "questions": [
+        {
+          "id": "fe-01",
+          "category": "Technical",
+          "question": "What is the Virtual DOM in React, and how does the reconciliation algorithm work?",
+          "answer_framework": "The Virtual DOM is a lightweight in-memory JavaScript representation of the real DOM tree. When component state or props change, React creates a new Virtual DOM tree and diffs it against the previous one using its reconciliation algorithm (Fiber). React calculates the minimal set of changes required and batches these mutations into the real browser DOM, avoiding costly direct DOM layout reflows and repaints.",
+          "key_points": ["Virtual DOM representation", "Diffing algorithm assumptions", "Batching DOM mutations", "React Fiber reconciliation"]
+        },
+        {
+          "id": "fe-02",
+          "category": "Technical",
+          "question": "Explain the difference between localStorage, sessionStorage, and Cookies.",
+          "answer_framework": "localStorage stores data without expiration date across browser restarts (typically up to 5-10MB, client-only). sessionStorage stores data strictly for the duration of the page session/tab (cleared on tab close). Cookies store smaller data (~4KB) and are automatically sent to the server with every matching HTTP request, supporting security flags such as HttpOnly (prevents XSS access), Secure, and SameSite.",
+          "key_points": ["Storage capacity differences", "Persistence lifecycle", "Client vs Server transmission", "Security flags (HttpOnly, SameSite)"]
+        },
+        {
+          "id": "fe-03",
+          "category": "Technical",
+          "question": "How do CSS Grid and Flexbox differ, and when should you choose one over the other?",
+          "answer_framework": "Flexbox is primarily a one-dimensional layout system designed for aligning items in either a row OR a column, ideal for navigation bars, button groups, and fluid alignment. CSS Grid is a two-dimensional layout system designed for rows AND columns simultaneously, ideal for whole-page layouts, dashboard cards, and complex responsive grid templates.",
+          "key_points": ["1D (Flexbox) vs 2D (Grid)", "Content-driven vs Layout-driven", "Responsive grid template areas", "Alignment capabilities"]
+        },
+        {
+          "id": "fe-04",
+          "category": "Behavioral",
+          "question": "Tell me about a time you had to balance design aesthetics with page load performance.",
+          "answer_framework": "Explain how you collaborated with designers to retain high-end visual polish while optimizing assets: lazy-loading offscreen images, utilizing modern formats (WebP/SVG), implementing responsive typography, stripping unused CSS, and ensuring Core Web Vitals (LCP, CLS, INP) remained within green thresholds.",
+          "key_points": ["Design-performance trade-off", "Image optimization (WebP, SVGs)", "Core Web Vitals monitoring", "Team collaboration"]
+        }
+      ]
+    },
+    "data_analyst": {
+      "role_name": "Data Analyst",
+      "tips": [
+        "Be ready to write window functions and complex multi-table joins on a whiteboard or screen share.",
+        "Articulate how data insights lead directly to actionable business decisions.",
+        "Demonstrate data cleansing vigilance and edge case handling."
+      ],
+      "questions": [
+        {
+          "id": "da-01",
+          "category": "Technical",
+          "question": "What is the difference between WHERE and HAVING in SQL?",
+          "answer_framework": "The WHERE clause filters individual rows before any aggregations (GROUP BY) take place. The HAVING clause filters aggregated groups after the GROUP BY clause has executed and aggregate functions (SUM, AVG, COUNT) have been calculated. You cannot use aggregate functions directly in a WHERE clause.",
+          "key_points": ["Pre-aggregation vs Post-aggregation filtering", "Use with GROUP BY", "Allowed usage of aggregate functions", "SQL query execution order"]
+        },
+        {
+          "id": "da-02",
+          "category": "Technical",
+          "question": "Explain SQL Window Functions and how ROW_NUMBER(), RANK(), and DENSE_RANK() differ.",
+          "answer_framework": "Window functions perform calculations across a set of table rows related to the current row without collapsing them into a single row like GROUP BY. For identical values, ROW_NUMBER() assigns strictly distinct sequential numbers (1, 2, 3, 4). RANK() gives tied ranks with gaps (1, 2, 2, 4). DENSE_RANK() gives tied ranks without gaps (1, 2, 2, 3).",
+          "key_points": ["OVER (PARTITION BY ... ORDER BY ...)", "Non-collapsing row operations", "Tie handling differences", "Typical business use cases (top-N per category)"]
+        },
+        {
+          "id": "da-03",
+          "category": "Behavioral",
+          "question": "How do you present complex statistical findings to non-technical business stakeholders?",
+          "answer_framework": "Focus on business impact first rather than statistical jargon. Begin with the executive summary and key recommendations. Use intuitive charts (bar/trend lines rather than dense matrices). Translate metrics into monetary value, churn reduction, or time saved, and leave technical methodology details for an appendix.",
+          "key_points": ["Executive summary first", "Intuitive visualization choice", "Tying numbers to business ROI", "Simplifying terminology"]
+        }
+      ]
+    },
+    "data_scientist_ml": {
+      "role_name": "Data Scientist / ML Engineer",
+      "tips": [
+        "Be prepared to explain trade-offs between bias and variance, and how to combat overfitting.",
+        "Understand evaluation metrics beyond accuracy: precision, recall, F1, ROC-AUC.",
+        "Explain how you would deploy a model and handle concept drift."
+      ],
+      "questions": [
+        {
+          "id": "ds-01",
+          "category": "Technical",
+          "question": "Why is accuracy often a misleading metric for imbalanced classification datasets, and what should you use instead?",
+          "answer_framework": "In an imbalanced dataset (e.g. 99% non-fraud, 1% fraud), a naive model predicting 'no fraud' always achieves 99% accuracy while having zero utility. Instead, evaluate models using Precision (exactness of positive predictions), Recall / Sensitivity (ability to find all positives), F1-Score (harmonic mean of precision and recall), or Area Under the ROC / PR Curve (PR-AUC is particularly suited for high class skew).",
+          "key_points": ["Majority class bias in accuracy", "Precision vs Recall trade-off", "F1 score and harmonic mean", "PR-AUC for severe imbalance"]
+        },
+        {
+          "id": "ds-02",
+          "category": "Technical",
+          "question": "What is the bias-variance tradeoff, and how do regularization techniques address it?",
+          "answer_framework": "Bias is error introduced by approximating real-world complex problems with simplified models (causing underfitting). Variance is model sensitivity to small fluctuations in training data (causing overfitting). As model complexity grows, bias decreases while variance increases. Regularization techniques like L1 (Lasso) and L2 (Ridge) penalize large weights in the loss function, constraining model complexity to reduce variance on unseen test data.",
+          "key_points": ["Underfitting vs Overfitting", "Model complexity continuum", "L1 Lasso (feature sparsity) vs L2 Ridge (weight shrinkage)", "Cross-validation role"]
+        },
+        {
+          "id": "ds-03",
+          "category": "Behavioral",
+          "question": "Describe a project where your initial machine learning model underperformed, and how you improved it.",
+          "answer_framework": "Explain diagnosing the failure: inspecting feature distributions, identifying data leakage or missing values, conducting thorough error analysis on false positives/negatives, engineering more informative domain-specific features, selecting a more suitable algorithm, or tuning hyperparameters systematically using cross-validation.",
+          "key_points": ["Error analysis approach", "Feature engineering importance", "Hyperparameter tuning", "Measurable performance gain"]
+        }
+      ]
+    },
+    "business_analyst": {
+      "role_name": "Business Analyst",
+      "tips": [
+        "Demonstrate structured thinking when untangling ambiguous requirements.",
+        "Emphasize conflict resolution between conflicting stakeholder priorities.",
+        "Know the difference between business requirements, functional requirements, and technical specifications."
+      ],
+      "questions": [
+        {
+          "id": "ba-01",
+          "category": "Technical",
+          "question": "What is the difference between a BRD (Business Requirements Document) and an SRS (Software Requirements Specification)?",
+          "answer_framework": "A BRD defines 'WHAT' the business problem is and the desired business outcomes from the stakeholder perspective (e.g. goals, scope, business rules, revenue expectations). An SRS defines 'HOW' the software system should be engineered to satisfy those business needs (e.g. functional requirements, system architecture, database interactions, non-functional latency/security constraints).",
+          "key_points": ["Business perspective (BRD) vs Technical perspective (SRS)", "High-level goals vs Detailed system behavior", "Target audience differences", "Traceability matrix connection"]
+        },
+        {
+          "id": "ba-02",
+          "category": "Behavioral",
+          "question": "How do you handle a situation where two senior stakeholders have contradictory feature requests?",
+          "answer_framework": "Facilitate a joint alignment session. First, tie both requests back to core organizational goals, business objectives, and customer data. Quantify impact and feasibility with the engineering team. Propose phased rollouts (MVP prioritization using MoSCoW framework), and maintain transparent documentation of decision trade-offs.",
+          "key_points": ["Data-driven mediation", "MoSCoW prioritization", "Alignment with company KPIs", "Documenting consensus and trade-offs"]
+        }
+      ]
+    },
+    "digital_marketing": {
+      "role_name": "Digital Marketing",
+      "tips": [
+        "Explain end-to-end customer funnels and conversion attribution models.",
+        "Know metrics: CPC, CPA, ROAS, LTV, CTR, Bounce Rate.",
+        "Discuss experimentation: A/B testing hypotheses and statistical significance."
+      ],
+      "questions": [
+        {
+          "id": "dm-01",
+          "category": "Technical",
+          "question": "How do Google Ads Quality Score and Ad Rank work, and how can you improve them?",
+          "answer_framework": "Ad Rank determines ad position on Google Search results and is calculated by multiplying Max CPC Bid by Quality Score (along with ad assets impact). Quality Score (1-10) depends on three factors: Expected Click-Through Rate (CTR), Ad Relevance to search query, and Landing Page Experience (speed, mobile responsiveness, relevancy). Improving ad copy keywords and landing page alignment boosts Quality Score, lowering actual CPC.",
+          "key_points": ["Ad Rank = Bid * Quality Score", "Three components of Quality Score", "Landing page experience role", "Lowering CPC via optimization"]
+        },
+        {
+          "id": "dm-02",
+          "category": "Behavioral",
+          "question": "Tell me about an A/B test you designed that generated unexpected findings.",
+          "answer_framework": "Explain hypothesis formulation (e.g. changing headline or CTA button placement), control vs variant setup, sample size determination, and statistical significance. Share how an unexpected finding challenged team assumptions and informed broader marketing messaging.",
+          "key_points": ["Hypothesis formulation", "Sample size & significance", "Analyzing user behavioral data", "Applying insights across channels"]
+        }
+      ]
+    },
+    "customer_support": {
+      "role_name": "Customer Support",
+      "tips": [
+        "Demonstrate deep empathy, active listening, and calm de-escalation skills.",
+        "Explain ticket prioritization and SLA management.",
+        "Show how customer feedback loops improve the underlying product."
+      ],
+      "questions": [
+        {
+          "id": "cs-01",
+          "category": "Behavioral",
+          "question": "How do you handle an extremely frustrated or angry customer whose workflow was disrupted by a software outage?",
+          "answer_framework": "First, practice active listening without interrupting. Acknowledge their frustration with sincere empathy and validate their business impact. Avoid blaming other teams or making defensive excuses. Provide clear immediate steps, realistic expectation timelines, frequent proactive status updates, and follow up once resolved to confirm their satisfaction.",
+          "key_points": ["Active listening & de-escalation", "Empathetic communication", "Clear timeline setting", "Proactive follow-up"]
+        },
+        {
+          "id": "cs-02",
+          "category": "Technical",
+          "question": "How do you systematically triage and prioritize a high volume of incoming support tickets?",
+          "answer_framework": "Categorize tickets by severity and impact on business continuity: critical system outages (Sev 1) take immediate priority, followed by broken core workflows (Sev 2), minor bugs with workarounds (Sev 3), and general inquiries/feature requests (Sev 4). Ensure adherence to Service Level Agreements (SLAs) and utilize canned responses for common how-to questions to preserve focus for complex issues.",
+          "key_points": ["Severity matrix (Sev 1 - Sev 4)", "Business continuity impact", "SLA tracking", "Knowledge base utilization"]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block title %}Resume Analyzer & Job Matcher — Smart Job Portal{% endblock %}
+
+{% block content %}
+<div class="page-banner">
+  <div class="container">
+    <h1 class="page-title">Resume Analyzer & Job Matcher</h1>
+    <p class="page-desc">Extract text from your PDF or TXT resume, compare required skills, and review text similarity separately.</p>
+  </div>
+</div>
+
+<div class="container analyzer-container">
+  {% if error_message %}
+    <div class="flash-alert flash-error" style="margin-bottom: 1.5rem;">
+      <div class="flash-icon">&excl;</div>
+      <div class="flash-body">{{ error_message }}</div>
+    </div>
+  {% endif %}
+
+  <!-- Upload and Comparison Form -->
+  <div class="analyzer-card">
+    <form action="{{ url_for('resume_analyzer') }}" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+      <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">1. Upload Your Resume</h3>
+      <p class="text-muted" style="font-size: 0.88rem; margin-bottom: 1rem;">
+        Supports .PDF and .TXT files up to 4 MB. Text is extracted entirely locally in memory.
+      </p>
+
+      <!-- Drag & Drop Zone -->
+      <div class="upload-dropzone" id="resumeDropzone">
+        <div class="dropzone-icon">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </div>
+        <p style="font-weight: 600; color: var(--navy-900); margin-bottom: 0.25rem;">
+          Drag and drop your resume file here, or click to browse
+        </p>
+        <span class="text-muted" style="font-size: 0.8rem;">Allowed: PDF (text-based), TXT &bull; Max 4 MB</span>
+        <input type="file" id="resumeFileInput" name="resume_file" accept=".pdf,.txt" style="display: none;">
+        <input type="hidden" id="cachedResumeText" name="cached_resume_text" value="{{ cached_resume_text|e if cached_resume_text else '' }}"/>
+        <input type="hidden" id="cachedResumeFilename" name="cached_resume_filename" value="{{ cached_filename|e if cached_filename else '' }}"/>
+        <div id="fileNameDisplay" style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--blue-600);">{% if cached_filename %}<strong>Selected file:</strong> {{ cached_filename }} <span class="text-muted">(ready for comparison)</span>{% endif %}</div>
+      </div>
+
+      <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; margin-top: 2rem;">2. Select Target Position for Comparison</h3>
+      <p class="text-muted" style="font-size: 0.88rem; margin-bottom: 1rem;">
+        Choose one of the active job vacancies, or paste custom job requirements below.
+      </p>
+
+      <div class="form-group">
+        <label class="form-label" for="jobSelect">Select Existing Portal Job</label>
+        <select id="jobSelect" name="job_id" class="form-control">
+          <option value="">-- Choose a target job from listings --</option>
+          {% for j in jobs %}
+            <option value="{{ j.id }}" {% if selected_job_id == j.id %}selected{% endif %}>
+              {{ j.title }} &bull; {{ j.company }} ({{ j.employment_type }})
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="customDesc">Or Enter Custom Job Description</label>
+        <textarea id="customDesc" name="custom_description" class="form-control" rows="4" placeholder="Paste another job's requirements, responsibilities, and required stack here...">{{ custom_description }}</textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg btn-block" style="margin-top: 1.5rem;">
+        Calculate Skill Match & Text Similarity
+      </button>
+    </form>
+  </div>
+
+  <!-- Analysis Results Section -->
+  {% if analysis %}
+    <div class="analyzer-card" style="border-top: 4px solid var(--blue-600);">
+      <h2 style="font-size: 1.6rem; margin-bottom: 1.5rem;">Resume Match Results</h2>
+
+      <!-- Similarity Score Display -->
+      <div class="similarity-meter-card">
+        <div class="score-circle">
+          <span class="score-num">{{ analysis.skill_match_percentage }}%</span>
+          <span class="score-label">SKILL MATCH</span>
+        </div>
+        <div class="meter-info">
+          <h3>
+            {% if analysis.skill_match_percentage >= 60 %}
+              High Required Skill Match
+            {% elif analysis.skill_match_percentage >= 30 %}
+              Moderate Required Skill Match
+            {% else %}
+              Low Required Skill Match
+            {% endif %}
+          </h3>
+          <p>
+            Skill match is the percentage of required skills found in your resume. Text similarity is {{ analysis.tfidf_similarity }}% (based on shared words and phrases between your resume and the target job requirements).
+          </p>
+        </div>
+      </div>
+
+      <!-- Skill Match Breakdown Grid -->
+      <div class="skill-columns-grid">
+        <!-- Matched Skills -->
+        <div class="skill-col-card">
+          <h4 style="color: var(--emerald-600);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Matching Required Skills ({{ analysis.matched_skills|length }})
+          </h4>
+          <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+            {% for s in analysis.matched_skills %}
+              <span class="badge badge-green" style="font-size: 0.82rem; padding: 0.25rem 0.6rem;">&check; {{ s }}</span>
+            {% else %}
+              <span class="text-muted" style="font-size: 0.88rem;">No explicit matching skills found in text.</span>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- Missing Skills -->
+        <div class="skill-col-card">
+          <h4 style="color: var(--rose-600);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Missing Required Skills ({{ analysis.missing_skills|length }})
+          </h4>
+          <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+            {% for s in analysis.missing_skills %}
+              <span class="badge badge-rose" style="font-size: 0.82rem; padding: 0.25rem 0.6rem;">+ {{ s }}</span>
+            {% else %}
+              <span class="text-muted" style="font-size: 0.88rem;">All specified core requirements detected!</span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Actionable Suggestions -->
+      <div style="margin-bottom: 2rem;">
+        <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">Actionable Optimization Suggestions</h3>
+        <ul style="padding-left: 1.25rem; color: var(--slate-700); line-height: 1.7;">
+          {% for sug in analysis.suggestions %}
+            <li style="margin-bottom: 0.5rem;">{{ sug }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- Skills Detected in Resume -->
+      {% if analysis.extracted_resume_skills %}
+        <div style="margin-bottom: 2rem; background-color: var(--slate-50); border: 1px solid var(--slate-200); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 0.95rem; margin-bottom: 0.5rem; color: var(--navy-900);">
+            Recognized Skills Extracted from Your File ({{ analysis.extracted_resume_skills|length }})
+          </h4>
+          <div style="display: flex; gap: 0.35rem; flex-wrap: wrap;">
+            {% for s in analysis.extracted_resume_skills %}
+              <span class="skill-tag">{{ s }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      <!-- Disclosed Disclaimer -->
+      <div style="background-color: var(--slate-100); border-radius: var(--radius-md); padding: 1rem; font-size: 0.8rem; color: var(--slate-600);">
+        <strong>Important Disclaimer:</strong> {{ analysis.disclaimer }}
+      </div>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile — Smart Job Portal{% endblock %}
+
+{% block content %}
+<div class="dashboard-header-strip">
+  <div class="container">
+    <div class="dashboard-role-badge badge-blue">Candidate Profile</div>
+    <h1 style="font-size: 2rem; margin-bottom: 0.25rem;">Candidate Profile Settings</h1>
+    <p class="text-muted">Keep your technical headline, competencies, and contact details up to date.</p>
+  </div>
+</div>
+
+<div class="container" style="max-width: 860px; margin-bottom: 4rem;">
+  <div class="analyzer-card">
+    <form action="{{ url_for('profile') }}" method="POST">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+        <div class="form-group">
+          <label class="form-label" for="profName">Full Name *</label>
+          <input type="text" id="profName" name="name" class="form-control" value="{{ user.name }}" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="profEmail">Email Address (Read-only)</label>
+          <input type="email" id="profEmail" class="form-control" value="{{ user.email }}" disabled style="background-color: var(--slate-100); color: var(--slate-600);">
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 1.25rem;">
+        <div class="form-group">
+          <label class="form-label" for="profHeadline">Professional Headline</label>
+          <input type="text" id="profHeadline" name="headline" class="form-control" value="{{ user.headline or '' }}" placeholder="e.g. Full-Stack Python & React Developer">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="profPhone">Contact Phone</label>
+          <input type="tel" id="profPhone" name="phone" class="form-control" value="{{ user.phone or '' }}" placeholder="+91 98765 43210">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="profPortfolio">Portfolio or GitHub URL</label>
+        <input type="url" id="profPortfolio" name="portfolio_url" class="form-control" value="{{ user.portfolio_url or '' }}" placeholder="https://github.com/yourusername">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="profSkills">Core Technical Skills (Comma-separated)</label>
+        <input type="text" id="profSkills" name="skills" class="form-control" value="{{ user.skills|join(', ') if user.skills else '' }}" placeholder="Python, SQL, React, Git, Docker">
+        <div class="form-hint">These skills are automatically matched with open job vacancies across the portal.</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="profBio">Professional Summary / Bio</label>
+        <textarea id="profBio" name="bio" class="form-control" rows="4" placeholder="Highlight your key achievements, years of experience, and primary stack...">{{ user.bio or '' }}</textarea>
+      </div>
+
+      <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+        <button type="submit" class="btn btn-primary">Save Profile Changes</button>
+        <a href="{{ url_for('dashboard_seeker') }}" class="btn btn-secondary">Back to Dashboard</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
